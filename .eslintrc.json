@@ -1,7 +1,5 @@
 {
-    "extends": ["prettier"],
-    "plugins": ["prettier"],
-    "rules": {
-    }
-  }
-  
+  "extends": ["prettier"],
+  "plugins": ["prettier"],
+  "rules": {}
+}
