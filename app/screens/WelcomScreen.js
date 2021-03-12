@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Image, View, Svg } from 'react-native';
 import color from '../constants/color';
+import logo from '../../assets/Logo.svg';
 
 // * Welcome screen Component
 const WelcomScreen = () => {
@@ -8,7 +9,7 @@ const WelcomScreen = () => {
     <View style={styles.container}>
       <View style={styles.backgroundFirstAngle} />
       <View style={styles.backgroundSecondAngle} />
-      <Text>Hello world</Text>
+      <Image source={logo} style={styles.logoImage} />
     </View>
   );
 };
@@ -43,5 +44,10 @@ const styles = StyleSheet.create({
     backgroundColor: color.primary,
     position: 'absolute',
     transform: [{ rotateX: '45deg' }, { rotateZ: '25deg' }]
+  },
+
+  logoImage: {
+    width: 200,
+    height: 200
   }
 });
