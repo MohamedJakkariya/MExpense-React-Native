@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
     height: '150%',
     backgroundColor: color.primary,
     position: 'absolute',
-    transform: [{ rotate: '17deg' }],
-    backfaceVisibility: 'hidden'
+    transform: [{ rotate: '17deg' }]
   },
   backgroundSecondAngle: {
     top: -200,
@@ -79,7 +78,8 @@ const styles = StyleSheet.create({
     fontFamily: 'poetsenOne'
   },
   quoteText: {
-    color: color.white
+    color: color.white,
+    textDecorationLine: 'underline'
   },
 
   // TODO: Button styles

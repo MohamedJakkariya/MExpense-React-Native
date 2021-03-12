@@ -1,8 +1,27 @@
 import React from 'react';
-import WelcomScreen from './app/screens/WelcomScreen';
 import AppLoading from 'expo-app-loading';
+
+import { AppRegistry } from 'react-native';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { name as appName } from './app.json';
+
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
+
+// import WelcomScreen from './app/screens/WelcomScreen';
+import LoginScreen from './app/screens/LoginScreen';
+
+import color from './app/constants/color';
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: color.white,
+    accent: color.white
+  }
+};
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -15,5 +34,11 @@ export default function App() {
     return <AppLoading />;
   }
 
-  return <WelcomScreen />;
+  return (
+    <PaperProvider theme={theme}>
+      <LoginScreen />
+    </PaperProvider>
+  );
 }
+
+AppRegistry.registerComponent(appName, () => Main);
