@@ -9,7 +9,8 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
 
 // import WelcomScreen from './app/screens/WelcomScreen';
-import LoginScreen from './app/screens/LoginScreen';
+// import LoginScreen from './app/screens/LoginScreen';
+import SignupScreen from './app/screens/SignupScreen';
 
 import color from './app/constants/color';
 
@@ -36,7 +37,7 @@ export default function App() {
 
   return (
     <PaperProvider theme={theme}>
-      <LoginScreen />
+      <SignupScreen />
     </PaperProvider>
   );
 }
