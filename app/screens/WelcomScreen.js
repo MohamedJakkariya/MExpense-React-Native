@@ -3,8 +3,11 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import color from '../constants/color';
 import Logo from '../../assets/Logo.svg';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 // * Welcome screen Component
-const WelcomScreen = () => {
+const WelcomScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.backgroundFirstAngle} />
@@ -16,10 +19,10 @@ const WelcomScreen = () => {
       <Text style={styles.quoteText}>How it's work ?</Text>
 
       <View style={styles.buttonWrapper}>
-        <TouchableOpacity onPress={() => alert('Hello, world!')} style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.button}>
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Hello, world!')} style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={styles.button}>
           <Text style={styles.buttonText}>SIGNUP</Text>
         </TouchableOpacity>
       </View>

@@ -7,11 +7,11 @@ import { name as appName } from './app.json';
 
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
-import { NavigationContainer } from 'react-native-navigation';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-// import WelcomScreen from './app/screens/WelcomScreen';
-// import LoginScreen from './app/screens/LoginScreen';
+import WelcomScreen from './app/screens/WelcomScreen';
+import LoginScreen from './app/screens/LoginScreen';
 import SignupScreen from './app/screens/SignupScreen';
 
 import color from './app/constants/color';
@@ -26,6 +26,8 @@ const theme = {
   }
 };
 
+const Stack = createStackNavigator();
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     poetsen: require('./assets/fonts/poetsenOne/PoetsenOne.ttf')
@@ -38,9 +40,15 @@ export default function App() {
   }
 
   return (
-    <PaperProvider theme={theme}>
-      <SignupScreen />
-    </PaperProvider>
+    <NavigationContainer>
+      <PaperProvider theme={theme}>
+        <Stack.Navigator>
+          <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </PaperProvider>
+    </NavigationContainer>
   );
 }
 
