@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import color from '../constants/color';
 import Logo from '../../assets/Logo.svg';
 import { TextInput } from 'react-native-paper';

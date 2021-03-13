@@ -7,6 +7,8 @@ import { name as appName } from './app.json';
 
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
+import { NavigationContainer } from 'react-native-navigation';
+import { createStackNavigator } from '@react-navigation/stack';
 
 // import WelcomScreen from './app/screens/WelcomScreen';
 // import LoginScreen from './app/screens/LoginScreen';
