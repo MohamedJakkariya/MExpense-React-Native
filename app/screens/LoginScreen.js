@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import color from '../constants/color';
 import Logo from '../../assets/Logo.svg';
 import { TextInput } from 'react-native-paper';
+import UserIcon from '../../assets/icons/user.svg';
+import EyeIcon from '../../assets/icons/eye-off.svg';
 
 // * Welcome screen Component
 const LoginScreen = () => {
@@ -23,7 +25,7 @@ const LoginScreen = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          bottom: 45
+          bottom: 50
         }}
       >
         {/* Input box container  */}
@@ -32,39 +34,77 @@ const LoginScreen = () => {
             width: '100%'
           }}
         >
-          <TextInput
-            selectionColor={color.white}
-            mode='outlined'
+          <View
             style={{
-              width: '90%',
+              width: '100%',
               alignSelf: 'center',
-              backgroundColor: color.green,
-              fontSize: 18
+              flexDirection: 'row',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative'
             }}
-            label='Email'
-            value={email}
-            dense={false}
-            onChangeText={text => setEmail(text)}
-          />
+          >
+            <TextInput
+              selectionColor={color.white}
+              mode='outlined'
+              style={{
+                width: '90%',
+                backgroundColor: color.green,
+                fontSize: 16
+              }}
+              label='Email'
+              value={email}
+              dense={false}
+              onChangeText={text => setEmail(text)}
+            />
+            <UserIcon style={styles.UserIcon} />
+          </View>
 
-          <TextInput
-            selectionColor={color.white}
-            mode='outlined'
-            secureTextEntry={true}
-            autoCorrect={false}
+          <View
             style={{
-              width: '90%',
-              right: 20,
-              alignSelf: 'flex-end',
-              backgroundColor: color.green,
-              color: color.white,
-              fontSize: 18,
-              paddingTop: 10
+              width: '100%',
+              alignSelf: 'center',
+              flexDirection: 'row',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative'
             }}
-            label='Password'
-            value={password}
-            onChangeText={text => setPassword(text)}
-          />
+          >
+            <TextInput
+              selectionColor={color.white}
+              mode='outlined'
+              secureTextEntry={true}
+              autoCorrect={false}
+              style={{
+                width: '90%',
+                backgroundColor: color.green,
+                fontSize: 18
+              }}
+              label='Password'
+              value={password}
+              onChangeText={text => setPassword(text)}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                position: 'absolute',
+                zIndex: 1,
+                color: color.white,
+                right: 25,
+                top: 10,
+                padding: 17
+              }}
+            >
+              <EyeIcon
+                style={{
+                  bottom: 5
+                }}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Input box bottom  */}
@@ -76,16 +116,32 @@ const LoginScreen = () => {
             alignItems: 'center',
             paddingTop: 10,
             paddingBottom: 20
-
-            // backgroundColor: color.white
           }}
         >
-          <CheckBox
-            value={isSelected}
-            tintColors={{ true: color.green, false: color.white }}
-            onValueChange={setSelection}
-            style={styles.checkbox}
-          />
+          <View
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <CheckBox
+              value={isSelected}
+              tintColors={{ true: color.green, false: color.white }}
+              onValueChange={setSelection}
+            />
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 14,
+                color: color.white
+              }}
+            >
+              Remember me
+            </Text>
+          </View>
 
           <TouchableOpacity
             style={{
@@ -165,7 +221,8 @@ const styles = StyleSheet.create({
     color: color.white,
     textDecorationLine: 'underline',
     textAlign: 'right',
-    right: 10
+    right: 10,
+    fontSize: 12
   },
 
   logoImage: {
@@ -174,5 +231,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 100,
     height: 100
+  },
+
+  UserIcon: {
+    position: 'absolute',
+    backgroundColor: color.green,
+    zIndex: 1,
+    color: color.white,
+    right: 30,
+    top: 18,
+    padding: 15
   }
 });
