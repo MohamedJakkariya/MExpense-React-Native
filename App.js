@@ -8,7 +8,7 @@ import { name as appName } from './app.json';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
 
 import WelcomScreen from './app/screens/WelcomScreen';
 import LoginScreen from './app/screens/LoginScreen';
@@ -42,7 +42,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <PaperProvider theme={theme}>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+          }}
+        >
           <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
