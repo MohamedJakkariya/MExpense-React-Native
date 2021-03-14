@@ -3,9 +3,6 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import color from '../constants/color';
 import Logo from '../../assets/Logo.svg';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
 // * Welcome screen Component
 const WelcomScreen = ({ navigation }) => {
   return (
