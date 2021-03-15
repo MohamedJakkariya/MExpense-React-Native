@@ -13,7 +13,7 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 import WelcomScreen from './app/screens/WelcomScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import SignupScreen from './app/screens/SignupScreen';
-import HomeScreen from './app/screens/HomeScreen';
+import IndexScreen from './app/screens';
 
 import color from './app/constants/color';
 
@@ -50,7 +50,7 @@ export default function App() {
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
           }}
         >
-          <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
