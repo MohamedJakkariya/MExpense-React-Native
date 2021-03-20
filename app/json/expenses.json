@@ -1,0 +1,14 @@
+[
+  {
+    "icon": "coffee",
+    "amount": 30.0,
+    "time": "11.06",
+    "notes": "cafe bar-hostel"
+  },
+  {
+    "icon": "bag",
+    "amount": 24.0,
+    "time": "10.02",
+    "notes": "online order-cake"
+  }
+]

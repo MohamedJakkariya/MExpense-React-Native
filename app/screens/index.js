@@ -23,7 +23,8 @@ export default function () {
         inactiveColor={color.white}
         shifting={true}
         barStyle={{
-          backgroundColor: color.primary
+          backgroundColor: color.primary,
+          paddingBottom: 10
         }}
       >
         <Tab.Screen
@@ -51,7 +52,7 @@ export default function () {
           options={{
             tabBarLabel: '',
             tabBarIcon: ({ color }) => <RotateCcwIcon />,
-            tabBarColor: `${color.green}`
+            tabBarColor: `${color.primary}`
           }}
         />
         <Tab.Screen
@@ -60,7 +61,7 @@ export default function () {
           options={{
             tabBarLabel: '',
             tabBarIcon: ({ color }) => <MoreInformationIcon />,
-            tabBarColor: `${color.red}`
+            tabBarColor: `${color.primary}`
           }}
         />
       </Tab.Navigator>

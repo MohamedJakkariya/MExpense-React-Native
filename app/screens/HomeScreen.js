@@ -126,19 +126,18 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   balanceBox: {
-    flex: 2,
     backgroundColor: color.primary,
     borderRadius: 12,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    paddingTop: 15
   },
   balanceBoxTop: {
     flexDirection: 'row',
-    flex: 2,
     alignItems: 'center',
     justifyContent: 'space-between'
   },
   balanceBoxBottom: {
-    flex: 2
+    flex: 1
   },
 
   fontBasic: {

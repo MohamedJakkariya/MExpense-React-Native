@@ -17,6 +17,8 @@ import IndexScreen from './app/screens';
 
 import color from './app/constants/color';
 
+import { ContextProvider } from './app/contexts';
+
 const theme = {
   ...DefaultTheme,
   roundness: 2,
@@ -41,22 +43,24 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <PaperProvider theme={theme}>
-        <StatusBar animated={true} backgroundColor={color.primary_light_1} />
+    <ContextProvider>
+      <NavigationContainer>
+        <PaperProvider theme={theme}>
+          <StatusBar animated={true} backgroundColor={color.primary_light_1} />
 
-        <Stack.Navigator
-          screenOptions={{
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-          }}
-        >
-          <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
-        </Stack.Navigator>
-      </PaperProvider>
-    </NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+            }}
+          >
+            <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
+          </Stack.Navigator>
+        </PaperProvider>
+      </NavigationContainer>
+    </ContextProvider>
   );
 }
 
