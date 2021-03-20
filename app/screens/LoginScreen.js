@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import color from '../constants/color';
@@ -6,9 +6,14 @@ import Logo from '../../assets/Logo.svg';
 import { TextInput } from 'react-native-paper';
 import UserIcon from '../../assets/icons/user.svg';
 import EyeIcon from '../../assets/icons/eye-off.svg';
+import { GlobalContext } from '../contexts';
 
 // * Welcome screen Component
 const LoginScreen = () => {
+  const expense = useContext(GlobalContext);
+
+  console.log(expense);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSelected, setSelection] = useState(false);

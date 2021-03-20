@@ -1,1 +1,1 @@
-export { default as ContextProvider } from './ContextProvider';
+export { default as GlobalContext } from './GlobalContext';

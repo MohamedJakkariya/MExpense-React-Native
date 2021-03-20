@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 
 import color from '../constants/color';
@@ -8,7 +8,13 @@ import MoneyIcon from '../../assets/icons/money.svg';
 import PlusIcon from '../../assets/icons/plus.svg';
 import ExpenseCard from '../components/HomeScreen/ExpenseCard';
 
+import { GlobalContext } from '../contexts';
+
 export default function HomeScreen() {
+  const expense = useContext(GlobalContext);
+
+  console.log(expense);
+
   return (
     <ScrollView style={styles.wrapper}>
       <StatusBar backgroundColor={color.primary} />

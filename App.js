@@ -17,7 +17,7 @@ import IndexScreen from './app/screens';
 
 import color from './app/constants/color';
 
-import { ContextProvider } from './app/contexts';
+import { GlobalContext } from './app/contexts';
 
 const theme = {
   ...DefaultTheme,
@@ -43,7 +43,7 @@ export default function App() {
   }
 
   return (
-    <ContextProvider>
+    <GlobalContext>
       <NavigationContainer>
         <PaperProvider theme={theme}>
           <StatusBar animated={true} backgroundColor={color.primary_light_1} />
@@ -53,14 +53,14 @@ export default function App() {
               cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
             }}
           >
+            <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
             <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
             <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
-            <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
             <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
           </Stack.Navigator>
         </PaperProvider>
       </NavigationContainer>
-    </ContextProvider>
+    </GlobalContext>
   );
 }
 
