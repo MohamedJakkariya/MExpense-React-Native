@@ -1,12 +1,16 @@
 import React from 'react';
 import { StyleSheet, ScrollView, TouchableOpacity, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import BackArrowIcon from '../../assets/icons/arrow-left-circle.svg';
-import ExpenseCard from '../components/HomeScreen/ExpenseCard';
+import ExpenseCard from '../components/ExpenseCard';
 
 import color from '../constants/color';
+import { getExpenses } from '../redux/reducers/expenseReducer';
 
 const HistroyScreen = ({ navigation }) => {
+  const expenses = useSelector(getExpenses);
+
   return (
     <View style={styles.screen_wrapper}>
       <TouchableOpacity style={styles.back_button} onPress={() => navigation.goBack()}>
@@ -14,47 +18,30 @@ const HistroyScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <ScrollView style={styles.history_wrapper}>
-        <View style={styles.day_wrapper}>
-          <Text
-            style={[
-              styles.fontBasic,
-              {
-                color: color.primary,
-                fontSize: 22,
-                textAlign: 'right',
-                fontWeight: 'bold',
-                paddingRight: 5
-              }
-            ]}
-          >
-            Today
-          </Text>
-          <ExpenseCard icon='coffee' amount={41.0} time='11.06' notes='cafe bar-hostel' />
-          <ExpenseCard icon='bag' amount={20.0} time='10.02' notes='online order-cake' />
-          <ExpenseCard icon='cart' amount={24.0} time='9.30' notes='shipping eye-glasses' />
-          <ExpenseCard icon='bag' amount={15.5} time='7.12' notes='night dinner' />
-        </View>
+        {Object.entries(expenses).map((expense, index) => {
+          return (
+            <View style={styles.day_wrapper} key={expense[0]}>
+              <Text
+                style={[
+                  styles.fontBasic,
+                  {
+                    color: color.primary,
+                    fontSize: 20,
+                    textAlign: 'right',
+                    fontWeight: 'bold',
+                    paddingRight: 5
+                  }
+                ]}
+              >
+                {expense[0].toUpperCase()}
+              </Text>
 
-        <View style={styles.day_wrapper}>
-          <Text
-            style={[
-              styles.fontBasic,
-              {
-                color: color.primary,
-                fontSize: 22,
-                // paddingBottom: 10,
-                textAlign: 'right',
-                fontWeight: 'bold',
-                paddingRight: 5
-                // backgroundColor: 'red'
-              }
-            ]}
-          >
-            Yesterday
-          </Text>
-          <ExpenseCard icon='coffee' amount={41.0} time='11.06' notes='' />
-          <ExpenseCard icon='bag' amount={20.0} time='10.02' notes='online order-cake' />
-        </View>
+              {expense[1].map(e => (
+                <ExpenseCard key={e.id} icon={e.icon} amount={e.amount} time={e.time} notes={e.notes} />
+              ))}
+            </View>
+          );
+        })}
       </ScrollView>
     </View>
   );

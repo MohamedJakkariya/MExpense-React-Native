@@ -9,6 +9,7 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import { Provider } from 'react-redux';
 
 import WelcomScreen from './app/screens/WelcomScreen';
 import LoginScreen from './app/screens/LoginScreen';
@@ -17,7 +18,7 @@ import IndexScreen from './app/screens';
 
 import color from './app/constants/color';
 
-import { GlobalContext } from './app/contexts';
+import store from './app/redux/store';
 
 const theme = {
   ...DefaultTheme,
@@ -31,7 +32,7 @@ const theme = {
 
 const Stack = createStackNavigator();
 
-export default function App() {
+function App() {
   const [fontsLoaded] = useFonts({
     poetsen: require('./assets/fonts/poetsenOne/PoetsenOne.ttf')
   });
@@ -43,25 +44,31 @@ export default function App() {
   }
 
   return (
-    <GlobalContext>
-      <NavigationContainer>
-        <PaperProvider theme={theme}>
-          <StatusBar animated={true} backgroundColor={color.primary_light_1} />
+    <NavigationContainer>
+      <PaperProvider theme={theme}>
+        <StatusBar animated={true} backgroundColor={color.primary_light_1} />
 
-          <Stack.Navigator
-            screenOptions={{
-              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-            }}
-          >
-            <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
-            <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
-            <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
-            <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
-          </Stack.Navigator>
-        </PaperProvider>
-      </NavigationContainer>
-    </GlobalContext>
+        <Stack.Navigator
+          screenOptions={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+          }}
+        >
+          <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </PaperProvider>
+    </NavigationContainer>
   );
 }
+
+export default () => {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+};
 
 AppRegistry.registerComponent(appName, () => Main);

@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import color from '../../constants/color';
+import color from '../constants/color';
 
-import CartIcon from '../../../assets/icons/shopping-cart.svg';
-import BagIcon from '../../../assets/icons/shopping-bag.svg';
-import CoffeeIcon from '../../../assets/icons/coffee.svg';
-import MinusIcon from '../../../assets/icons/minus.svg';
-import MoneyIcon from '../../../assets/icons/money_red.svg';
+import CartIcon from '../../assets/icons/shopping-cart.svg';
+import BagIcon from '../../assets/icons/shopping-bag.svg';
+import CoffeeIcon from '../../assets/icons/coffee.svg';
+import MinusIcon from '../../assets/icons/minus.svg';
+import MoneyIcon from '../../assets/icons/money_red.svg';
 
 const ExpenseCard = ({ icon, amount, time, notes }) => {
   // TODO: Set icon selector
@@ -25,7 +25,7 @@ const ExpenseCard = ({ icon, amount, time, notes }) => {
           <Text
             style={{
               fontWeight: 'bold',
-              fontSize: 35,
+              fontSize: 30,
               color: color.red,
               marginLeft: 15
             }}

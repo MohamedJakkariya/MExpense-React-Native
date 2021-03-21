@@ -6,14 +6,12 @@ import color from '../constants/color';
 import UserIcon from '../../assets/icons/User Icon.svg';
 import MoneyIcon from '../../assets/icons/money.svg';
 import PlusIcon from '../../assets/icons/plus.svg';
-import ExpenseCard from '../components/HomeScreen/ExpenseCard';
-
-import { GlobalContext } from '../contexts';
+import ExpenseCard from '../components/ExpenseCard';
+import { useSelector } from 'react-redux';
+import { getExpenses } from '../redux/reducers/expenseReducer';
 
 export default function HomeScreen() {
-  const expense = useContext(GlobalContext);
-
-  console.log(expense);
+  const expenses = useSelector(getExpenses);
 
   return (
     <ScrollView style={styles.wrapper}>
@@ -112,13 +110,15 @@ export default function HomeScreen() {
         >
           Recent expense
         </Text>
-        <ExpenseCard icon='coffee' amount={41.0} time='11.06' notes='cafe bar-hostel' />
-        <ExpenseCard icon='bag' amount={20.0} time='10.02' notes='online order-cake' />
-        <ExpenseCard icon='cart' amount={24.0} time='9.30' notes='shipping eye-glasses' />
-        <ExpenseCard icon='bag' amount={15.5} time='7.12' notes='night dinner' />
-        <ExpenseCard icon='bag' amount={15.5} time='7.12' notes='night dinner' />
-        <ExpenseCard icon='bag' amount={15.5} time='7.12' notes='night dinner' />
-        <ExpenseCard icon='bag' amount={15.5} time='7.12' notes='night dinner' />
+        {expenses.today.map(expense => (
+          <ExpenseCard
+            icon={expense.icon}
+            key={expense.id}
+            amount={expense.amount}
+            time={expense.time}
+            notes={expense.notes}
+          />
+        ))}
       </View>
     </ScrollView>
   );
