@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 
 import color from '../constants/color';
@@ -7,11 +7,22 @@ import UserIcon from '../../assets/icons/User Icon.svg';
 import MoneyIcon from '../../assets/icons/money.svg';
 import PlusIcon from '../../assets/icons/plus.svg';
 import ExpenseCard from '../components/ExpenseCard';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getExpenses } from '../redux/reducers/expenseReducer';
+import { getBalance, setBalance } from '../redux/reducers/balanceReducer';
 
 export default function HomeScreen() {
   const expenses = useSelector(getExpenses);
+  const balance = useSelector(getBalance);
+
+  const dispatch = useDispatch();
+
+  console.log(new Date().getDate());
+
+  // TODO: Set balance amount
+  useEffect(() => {
+    dispatch(setBalance(expenses.summary.balance_amount, 'balance/setBalance'));
+  }, []);
 
   return (
     <ScrollView style={styles.wrapper}>
@@ -63,7 +74,7 @@ export default function HomeScreen() {
                   fontWeight: 'bold'
                 }}
               >
-                100.00
+                {balance.toFixed(2)}
               </Text>
             </Text>
 
@@ -81,7 +92,7 @@ export default function HomeScreen() {
                   fontSize: 22
                 }}
               >
-                02
+                {new Date().getDate()}
               </Text>
               <Text
                 style={{
@@ -90,7 +101,7 @@ export default function HomeScreen() {
                   fontWeight: 'bold'
                 }}
               >
-                FEB
+                {new Date().toLocaleString('default', { month: 'short' }).toUpperCase()}
               </Text>
             </View>
           </View>
@@ -110,7 +121,7 @@ export default function HomeScreen() {
         >
           Recent expense
         </Text>
-        {expenses.today.map(expense => (
+        {expenses.data.today.map(expense => (
           <ExpenseCard
             icon={expense.icon}
             key={expense.id}

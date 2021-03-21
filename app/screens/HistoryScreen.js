@@ -18,7 +18,7 @@ const HistroyScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <ScrollView style={styles.history_wrapper}>
-        {Object.entries(expenses).map((expense, index) => {
+        {Object.entries(expenses.data).map((expense, index) => {
           return (
             <View style={styles.day_wrapper} key={expense[0]}>
               <Text

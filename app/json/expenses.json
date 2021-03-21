@@ -1,48 +1,53 @@
 {
-  "today": [
-    {
-      "id": "1",
-      "icon": "coffee",
-      "amount": 30.0,
-      "time": "11.06",
-      "notes": "cafe bar-hostel"
-    },
-    {
-      "id": "2",
-      "icon": "bag",
-      "amount": 24.0,
-      "time": "10.02",
-      "notes": "online order-cake"
-    },
-    {
-      "id": "3",
-      "icon": "cart",
-      "amount": 245.0,
-      "time": "7.02",
-      "notes": "shopiing"
-    },
-    {
-      "id": "4",
-      "icon": "bag",
-      "amount": 50.5,
-      "time": "4.02",
-      "notes": "snacks"
-    }
-  ],
-  "yesterday": [
-    {
-      "id": "1",
-      "icon": "coffee",
-      "amount": 30.0,
-      "time": "11.06",
-      "notes": "cafe bar-hostel"
-    },
-    {
-      "id": "2",
-      "icon": "bag",
-      "amount": 24.0,
-      "time": "10.02",
-      "notes": "online order-cake"
-    }
-  ]
+  "summary": {
+    "balance_amount": 200
+  },
+  "data": {
+    "today": [
+      {
+        "id": "1",
+        "icon": "coffee",
+        "amount": 30.0,
+        "time": "11.06",
+        "notes": "cafe bar-hostel"
+      },
+      {
+        "id": "2",
+        "icon": "bag",
+        "amount": 24.0,
+        "time": "10.02",
+        "notes": "online order-cake"
+      },
+      {
+        "id": "3",
+        "icon": "cart",
+        "amount": 245.0,
+        "time": "7.02",
+        "notes": "shopiing"
+      },
+      {
+        "id": "4",
+        "icon": "bag",
+        "amount": 50.5,
+        "time": "4.02",
+        "notes": "snacks"
+      }
+    ],
+    "yesterday": [
+      {
+        "id": "1",
+        "icon": "coffee",
+        "amount": 30.0,
+        "time": "11.06",
+        "notes": "cafe bar-hostel"
+      },
+      {
+        "id": "2",
+        "icon": "bag",
+        "amount": 24.0,
+        "time": "10.02",
+        "notes": "online order-cake"
+      }
+    ]
+  }
 }
