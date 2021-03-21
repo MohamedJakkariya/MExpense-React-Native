@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import BackArrowIcon from '../../assets/icons/arrow-left-circle.svg';
 import ExpenseCard from '../components/ExpenseCard';
+import StaticAddButton from '../components/StaticAddButton';
 
 import color from '../constants/color';
 import { getExpenses } from '../redux/reducers/expenseReducer';
@@ -13,6 +14,8 @@ const HistroyScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screen_wrapper}>
+      <StaticAddButton />
+
       <TouchableOpacity style={styles.back_button} onPress={() => navigation.goBack()}>
         <BackArrowIcon />
       </TouchableOpacity>
