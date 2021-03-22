@@ -66,7 +66,7 @@ const BalanceCard = () => {
                 fontWeight: 'bold'
               }}
             >
-              {initialBalance}
+              {initialBalance.toFixed(2)}
             </Text>
           </Text>
 
