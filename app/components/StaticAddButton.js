@@ -11,7 +11,7 @@ import color from '../constants/color';
 import { IconViewOption } from '../utility';
 import { addExpense } from '../redux/reducers/expenseReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBalance, getBalance } from '../redux/reducers/balanceReducer';
+import { getBalance, subtractBalance } from '../redux/reducers/balanceReducer';
 
 // TODO: Define dropdown options
 const dropdownOption = ['Default', 'Coffee', 'Tag', 'Bookmark', 'Truck', 'Card', 'Shopping', 'Bag'];
@@ -25,7 +25,7 @@ const StaticAddButton = () => {
   const existBalance = useSelector(getBalance);
   const dispatch = useDispatch();
 
-  const hanldeAddExpenseButton = () => {
+  const handleAddExpenseButton = () => {
     dispatch(
       addExpense(
         {
@@ -40,7 +40,7 @@ const StaticAddButton = () => {
     );
 
     // TODO: Update the new balance
-    dispatch(addBalance(existBalance - +amount, 'balance/addBalance'));
+    dispatch(subtractBalance(existBalance - +amount, 'balance/subtractBalance'));
 
     // TODO: Close the modal
     setModalVisible(!modalVisible);
@@ -212,7 +212,7 @@ const StaticAddButton = () => {
                     width: 100
                   }
                 ]}
-                onPress={hanldeAddExpenseButton}
+                onPress={handleAddExpenseButton}
               >
                 <Text style={styles.textStyle}>Add</Text>
               </Pressable>

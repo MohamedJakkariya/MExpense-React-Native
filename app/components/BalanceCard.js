@@ -8,10 +8,10 @@ import { getBalance, setBalance } from '../redux/reducers/balanceReducer';
 
 import UserIcon from '../../assets/icons/User Icon.svg';
 import MoneyIcon from '../../assets/icons/money.svg';
-import PlusIcon from '../../assets/icons/plus.svg';
 
 import color from '../constants/color';
 import { getExpenses } from '../redux/reducers/expenseReducer';
+import AddBalance from './AddBalance';
 
 const BalanceCard = () => {
   const expenses = useSelector(getExpenses);
@@ -48,13 +48,7 @@ const BalanceCard = () => {
           >
             Balance
           </Text>
-          <TouchableOpacity>
-            <PlusIcon
-              style={{
-                marginRight: 15
-              }}
-            />
-          </TouchableOpacity>
+          <AddBalance />
         </View>
 
         <View style={[styles.balanceBoxTop, styles.balanceBoxBottom]}>
