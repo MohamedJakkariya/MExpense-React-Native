@@ -24,8 +24,6 @@ const StaticAddButton = () => {
   const existBalance = useSelector(getBalance);
   const dispatch = useDispatch();
 
-  console.log(existBalance);
-
   const hanldeAddExpenseButton = () => {
     dispatch(
       addExpense(
@@ -89,7 +87,7 @@ const StaticAddButton = () => {
         </TouchableOpacity>
       </View>
       <Modal
-        animationType='slide'
+        animationType='fade'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {

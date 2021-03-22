@@ -6,12 +6,7 @@ const expenseSlice = createSlice({
   name: 'expense',
   initialState: expenseJson,
   reducers: {
-    addExpense: (state, action) => ({
-      ...state,
-      data: {
-        today: [action.payload, ...state.data.today]
-      }
-    }),
+    addExpense: (state, action) => state.data.today.unshift(action.payload),
     removeExpense: (state, action) => {}
   }
 });
