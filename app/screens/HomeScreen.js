@@ -148,7 +148,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   bottomContainer: {
     flex: 2,
-    backgroundColor: color.white,
     margin: 10,
     marginTop: 20
   },
@@ -168,7 +167,7 @@ const styles = StyleSheet.create({
   },
 
   fontBasic: {
-    color: color.white,
+    // color: color.white,
     fontWeight: 'bold'
   },
 
@@ -182,7 +181,6 @@ const styles = StyleSheet.create({
 
   welcomeBox: {
     flex: 1,
-    backgroundColor: color.white,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -201,6 +199,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    backgroundColor: color.white
+    position: 'relative'
+    // backgroundColor: color.white
   }
 });

@@ -10,15 +10,24 @@ const StaticAddButton = () => {
         width: 55,
         height: 55,
         position: 'absolute',
-        bottom: 25,
-        right: 25,
-        elevation: 1
-        // bottom: 20,
-        // right: 20
+        zIndex: 1,
+        bottom: 20,
+        right: 20
       }}
     >
-      <TouchableOpacity>
-        <AddStaticIcon />
+      <TouchableOpacity
+        style={{
+          elevation: 6,
+          borderRadius: 100,
+          paddingTop: 2,
+
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+        onPress={() => alert('clicked!')}
+      >
+        <AddStaticIcon style={{}} />
       </TouchableOpacity>
     </View>
   );
