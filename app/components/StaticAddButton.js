@@ -4,9 +4,10 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import moment from 'moment';
 
 import AddStaticIcon from '../../assets/icons/static_add_button.svg';
+import RupeeRedIcon from '../../assets/icons/money_red.svg';
+
 import color from '../constants/color';
 
-import RupeeRedIcon from '../../assets/icons/money_red.svg';
 import { IconViewOption } from '../utility';
 import { addExpense } from '../redux/reducers/expenseReducer';
 import { useDispatch, useSelector } from 'react-redux';
