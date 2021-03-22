@@ -29,7 +29,8 @@ export default function HomeScreen() {
       style={{
         width: '100%',
         height: '100%',
-        position: 'relative'
+        position: 'relative',
+        zIndex: -1
       }}
     >
       <StaticAddButton />

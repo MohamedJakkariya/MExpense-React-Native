@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   screen_wrapper: {
-    flex: 10
+    flex: 10,
+    zIndex: -1
   }
 });

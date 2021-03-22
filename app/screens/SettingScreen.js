@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import AddPopUp from '../components/AddPopUp';
 
 const SettingScreen = () => {
   return (
@@ -10,7 +9,7 @@ const SettingScreen = () => {
         backgroundColor: 'red'
       }}
     >
-      <AddPopUp />
+      <Text>History screen</Text>
     </View>
   );
 };
