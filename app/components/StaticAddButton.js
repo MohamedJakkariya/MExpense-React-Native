@@ -40,7 +40,7 @@ const StaticAddButton = () => {
     );
 
     // TODO: Update the new balance
-    dispatch(addBalance(existBalance + +amount, 'balance/addBalance'));
+    dispatch(addBalance(existBalance - +amount, 'balance/addBalance'));
 
     // TODO: Close the modal
     setModalVisible(!modalVisible);
