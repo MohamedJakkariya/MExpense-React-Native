@@ -4,6 +4,6 @@ export default {
   primary_light_1: '#25547B',
   green: '#16C79A',
   red: '#EA2C62',
-  white: '#FCEEF5',
+  white: '#FFFFFF',
   lightWhite: '#E6E6E6'
 };

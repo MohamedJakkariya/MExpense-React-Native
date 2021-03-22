@@ -2,9 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import color from '../constants/color';
 
+import CoffeeIcon from '../../assets/icons/coffee.svg';
+import TagIcon from '../../assets/icons/tag.svg';
+import BookMarkIcon from '../../assets/icons/bookmark.svg';
+import TruckIcon from '../../assets/icons/truck.svg';
+import CardIcon from '../../assets/icons/credit-card.svg';
 import CartIcon from '../../assets/icons/shopping-cart.svg';
 import BagIcon from '../../assets/icons/shopping-bag.svg';
-import CoffeeIcon from '../../assets/icons/coffee.svg';
 import MinusIcon from '../../assets/icons/minus.svg';
 import MoneyIcon from '../../assets/icons/money_red.svg';
 
@@ -13,12 +17,17 @@ const ExpenseCard = ({ icon, amount, time, notes }) => {
   const iconSelector = {
     coffee: <CoffeeIcon />,
     bag: <BagIcon />,
-    cart: <CartIcon />
+    default: <BookMarkIcon />,
+    bookmark: <BookMarkIcon />,
+    tag: <TagIcon />,
+    truck: <TruckIcon />,
+    card: <CardIcon />,
+    shopping: <CartIcon />
   };
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.coffeeIcon}>{iconSelector[icon]}</View>
+      <View style={styles.coffeeIcon}>{iconSelector[icon.toLowerCase()]}</View>
 
       <View style={styles.minusAmount}>
         <View>
@@ -27,12 +36,13 @@ const ExpenseCard = ({ icon, amount, time, notes }) => {
               fontWeight: 'bold',
               fontSize: 30,
               color: color.red,
-              marginLeft: 15
+              // marginLeft: 15,
+              textAlign: 'center'
             }}
           >
             <MinusIcon />
             <MoneyIcon width={20} height={20} />
-            {amount.toFixed(2)}
+            {amount}
           </Text>
           <Text
             style={{
@@ -53,7 +63,7 @@ const ExpenseCard = ({ icon, amount, time, notes }) => {
         <Text
           style={{
             fontWeight: 'bold',
-            fontSize: 16,
+            fontSize: 14,
             color: color.white
           }}
         >
@@ -80,13 +90,16 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   coffeeIcon: {
-    flex: 0.7,
+    flex: 0.5,
     paddingLeft: 25
   },
   timeText: {
-    flex: 1
+    flex: 1.4,
+    textAlign: 'right'
   },
   minusAmount: {
-    flex: 2.5
+    flex: 2.5,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

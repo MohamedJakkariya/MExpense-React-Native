@@ -6,7 +6,7 @@ const balanceSlice = createSlice({
   reducers: {
     setBalance: (state, action) => (state = action.payload),
 
-    addAmount: (state, action) => {},
+    addBalance: (state, action) => (state = action.payload),
     subtractAmount: (state, action) => {},
     resetAmount: (state, action) => {
       state = 0;
@@ -14,7 +14,7 @@ const balanceSlice = createSlice({
   }
 });
 
-export const { addAmount, subtractAmount, resetAmount, setBalance } = balanceSlice.actions;
+export const { addBalance, subtractAmount, resetAmount, setBalance } = balanceSlice.actions;
 
 export const getBalance = state => state.balance;
 

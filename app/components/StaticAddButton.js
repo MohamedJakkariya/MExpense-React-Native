@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Alert, Modal, Text, Pressable, TextInput } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
+import moment from 'moment';
 
 import AddStaticIcon from '../../assets/icons/static_add_button.svg';
 import color from '../constants/color';
 
 import RupeeRedIcon from '../../assets/icons/money_red.svg';
 import { IconViewOption } from '../utility';
+import { addExpense } from '../redux/reducers/expenseReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBalance, getBalance } from '../redux/reducers/balanceReducer';
 
 // TODO: Define dropdown options
 const dropdownOption = ['Default', 'Coffee', 'Tag', 'Bookmark', 'Truck', 'Card', 'Shopping', 'Bag'];
@@ -16,6 +20,37 @@ const StaticAddButton = () => {
   const [amount, setAmount] = useState(null);
   const [notes, setNotes] = useState('');
   const [iconOption, setIconOption] = useState(dropdownOption[0]);
+
+  const existBalance = useSelector(getBalance);
+  const dispatch = useDispatch();
+
+  console.log(existBalance);
+
+  const hanldeAddExpenseButton = () => {
+    dispatch(
+      addExpense(
+        {
+          id: Math.random(3),
+          icon: iconOption,
+          amount: +amount,
+          time: moment().format('LT'),
+          notes
+        },
+        'balance/addExpense'
+      )
+    );
+
+    // TODO: Update the new balance
+    dispatch(addBalance(existBalance + +amount, 'balance/addBalance'));
+
+    // TODO: Close the modal
+    setModalVisible(!modalVisible);
+
+    // TODO: reset Text, amount, iconOption
+    setNotes('');
+    setAmount(null);
+    setIconOption('Default');
+  };
 
   return (
     <View
@@ -178,7 +213,7 @@ const StaticAddButton = () => {
                     width: 100
                   }
                 ]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={hanldeAddExpenseButton}
               >
                 <Text style={styles.textStyle}>Add</Text>
               </Pressable>
