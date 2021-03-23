@@ -8,29 +8,29 @@
         "id": "1",
         "icon": "coffee",
         "amount": 30.0,
-        "time": "11.06 PM",
-        "notes": "cafe bar-hostel"
+        "when": "11.06 PM",
+        "description": "cafe bar-hostel"
       },
       {
         "id": "2",
         "icon": "bag",
         "amount": 24.0,
-        "time": "10.02 PM",
-        "notes": "online order-cake"
+        "when": "10.02 PM",
+        "description": "online order-cake"
       },
       {
         "id": "3",
         "icon": "shopping",
         "amount": 245.0,
-        "time": "7.02 PM",
-        "notes": "shopiing"
+        "when": "7.02 PM",
+        "description": "shopiing"
       },
       {
         "id": "4",
         "icon": "bag",
         "amount": 50.5,
-        "time": "4.02 PM",
-        "notes": "snacks"
+        "when": "4.02 PM",
+        "description": "snacks"
       }
     ],
     "yesterday": [
@@ -38,15 +38,15 @@
         "id": "1",
         "icon": "coffee",
         "amount": 30.0,
-        "time": "11.06 PM",
-        "notes": "cafe bar-hostel"
+        "when": "11.06 PM",
+        "description": "cafe bar-hostel"
       },
       {
         "id": "2",
         "icon": "bag",
         "amount": 24.0,
-        "time": "10.02 PM",
-        "notes": "online order-cake"
+        "when": "10.02 PM",
+        "description": "online order-cake"
       }
     ]
   }
