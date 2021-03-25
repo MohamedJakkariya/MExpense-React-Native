@@ -45,7 +45,7 @@ export default function HomeScreen() {
               icon={expense.icon}
               key={expense.id}
               amount={expense.amount}
-              time={expense.time}
+              when={expense.when}
               notes={expense.notes}
             />
           ))}

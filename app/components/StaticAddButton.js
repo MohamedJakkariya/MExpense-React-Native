@@ -42,7 +42,7 @@ const StaticAddButton = () => {
           id: Math.random(3),
           icon: iconOption,
           amount: +amount,
-          time: moment().format('LT'),
+          when: moment().format('LT'),
           notes
         },
         'balance/addExpense'

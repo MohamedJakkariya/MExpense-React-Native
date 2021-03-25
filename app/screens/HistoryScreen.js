@@ -40,7 +40,7 @@ const HistroyScreen = ({ navigation }) => {
               </Text>
 
               {expense[1].map(e => (
-                <ExpenseCard key={e.id} icon={e.icon} amount={e.amount} time={e.time} notes={e.notes} />
+                <ExpenseCard key={e.id} icon={e.icon} amount={e.amount} when={e.when} notes={e.notes} />
               ))}
             </View>
           );
