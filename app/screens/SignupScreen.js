@@ -15,40 +15,42 @@ import color from '../constants/color';
 
 // * Welcome screen Component
 const SignupScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [c_password, setCPassword] = useState('');
-  const [eye_view_password, setEyeViewPassword] = useState(true);
-  const [eye_view_c_password, setEyeViewCPassword] = useState(true);
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+    c_password: '',
+    eye_view_password: true,
+    eye_view_c_password: true
+  });
 
   const handleRegisterUser = async () => {
     // ! Validation
-    if (!(await validateEmail(email)))
+    if (!(await validateEmail(state.email)))
       return showMessage({
         message: 'Please enter correct email.',
         type: 'warning'
       });
 
-    if (!password || !c_password)
+    if (!state.password || !state.c_password)
       return showMessage({
         message: 'Password and confirm password are needed.',
         type: 'warning'
       });
 
-    if (!password.match(/^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))
+    if (!state.password.match(/^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))
       return showMessage({
         message: 'Give some strong password(8 min).',
         type: 'warning'
       });
 
-    if (password !== c_password)
+    if (state.password !== state.c_password)
       return showMessage({
         message: 'Passwords are mismatch.',
         type: 'warning'
       });
 
     // Redirect to home page
-    // navigation.navigate('Index', { screen: 'Home' });
+    return navigation.navigate('Index', { screen: 'Home' });
   };
 
   return (
@@ -91,9 +93,14 @@ const SignupScreen = ({ navigation }) => {
                 color: color.white
               }}
               label='Email'
-              value={email}
+              value={state.email}
               dense={false}
-              onChangeText={setEmail}
+              onChangeText={e =>
+                setState({
+                  ...state,
+                  email: e
+                })
+              }
             />
             <UserIcon style={styles.UserIcon} />
           </View>
@@ -112,7 +119,7 @@ const SignupScreen = ({ navigation }) => {
             <TextInput
               selectionColor={color.white}
               mode='outlined'
-              secureTextEntry={eye_view_password}
+              secureTextEntry={state.eye_view_password}
               autoCorrect={false}
               style={{
                 width: '90%',
@@ -120,8 +127,13 @@ const SignupScreen = ({ navigation }) => {
                 fontSize: 16
               }}
               label='Password'
-              value={password}
-              onChangeText={setPassword}
+              value={state.password}
+              onChangeText={e =>
+                setState({
+                  ...state,
+                  password: e
+                })
+              }
             />
             <TouchableOpacity
               style={{
@@ -134,9 +146,14 @@ const SignupScreen = ({ navigation }) => {
                 top: 10,
                 padding: 17
               }}
-              onPress={() => setEyeViewPassword(!eye_view_password)}
+              onPress={() =>
+                setState({
+                  ...state,
+                  eye_view_password: !state.eye_view_password
+                })
+              }
             >
-              {eye_view_password ? (
+              {state.eye_view_password ? (
                 <EyeOffIcon
                   style={{
                     bottom: 5
@@ -166,7 +183,7 @@ const SignupScreen = ({ navigation }) => {
             <TextInput
               selectionColor={color.white}
               mode='outlined'
-              secureTextEntry={eye_view_c_password}
+              secureTextEntry={state.eye_view_c_password}
               autoCorrect={false}
               style={{
                 width: '90%',
@@ -174,8 +191,13 @@ const SignupScreen = ({ navigation }) => {
                 fontSize: 16
               }}
               label='Confirm Password'
-              value={c_password}
-              onChangeText={setCPassword}
+              value={state.c_password}
+              onChangeText={e =>
+                setState({
+                  ...state,
+                  c_password: e
+                })
+              }
             />
             <TouchableOpacity
               style={{
@@ -188,9 +210,14 @@ const SignupScreen = ({ navigation }) => {
                 top: 10,
                 padding: 17
               }}
-              onPress={() => setEyeViewCPassword(!eye_view_c_password)}
+              onPress={() =>
+                setState({
+                  ...state,
+                  eye_view_c_password: !state.eye_view_c_password
+                })
+              }
             >
-              {eye_view_c_password ? (
+              {state.eye_view_c_password ? (
                 <EyeOffIcon
                   style={{
                     bottom: 5
