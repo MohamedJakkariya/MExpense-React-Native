@@ -7,9 +7,10 @@ import UserIcon from '../../assets/icons/user.svg';
 import EyeIcon from '../../assets/icons/eye-off.svg';
 
 // * Welcome screen Component
-const LoginScreen = () => {
+const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [c_password, setCPassword] = useState('');
 
   return (
     <View style={styles.container}>
@@ -26,7 +27,6 @@ const LoginScreen = () => {
           bottom: 30
         }}
       >
-        {/* Input box container  */}
         <View
           style={{
             width: '100%'
@@ -126,8 +126,8 @@ const LoginScreen = () => {
                 fontSize: 16
               }}
               label='Confirm Password'
-              value={password}
-              onChangeText={text => setPassword(text)}
+              value={c_password}
+              onChangeText={setCPassword}
             />
             <TouchableOpacity
               style={{
@@ -150,7 +150,7 @@ const LoginScreen = () => {
           </View>
         </View>
 
-        <TouchableOpacity onPress={() => alert('Clicked signup button!')} style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('Index', { screen: 'Home' })} style={styles.button}>
           <Text style={styles.buttonText}>SIGNUP</Text>
         </TouchableOpacity>
 
@@ -162,7 +162,7 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
 
 // TODO: Make styles with StyleSheet API
 const styles = StyleSheet.create({

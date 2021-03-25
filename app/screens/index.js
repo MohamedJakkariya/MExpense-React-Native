@@ -11,12 +11,17 @@ import MoreInformationIcon from '../../assets/icons/more-horizontal.svg';
 import RotateCcwIcon from '../../assets/icons/rotate-ccw.svg';
 
 import color from '../constants/color';
+import { View } from 'react-native';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function () {
   return (
-    <NavigationContainer independent={true}>
+    <View
+      style={{
+        flex: 1
+      }}
+    >
       <Tab.Navigator
         initialRouteName='Home'
         activeColor={color.green}
@@ -65,6 +70,6 @@ export default function () {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
+    </View>
   );
 }

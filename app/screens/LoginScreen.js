@@ -8,7 +8,7 @@ import UserIcon from '../../assets/icons/user.svg';
 import EyeIcon from '../../assets/icons/eye-off.svg';
 
 // * Welcome screen Component
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSelected, setSelection] = useState(false);
@@ -152,7 +152,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={() => alert('Hello, world!')} style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('Index', { screen: 'Home' })} style={styles.button}>
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
       </View>

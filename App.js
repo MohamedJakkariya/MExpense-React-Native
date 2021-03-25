@@ -53,10 +53,10 @@ function App() {
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
           }}
         >
-          <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>
