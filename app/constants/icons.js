@@ -1,0 +1,10 @@
+export default {
+  DEFAULT: 'DEFAULT',
+  COFFEE: 'COFFEE',
+  TAG: 'TAG',
+  BOOKMARK: 'BOOKMARK',
+  TRUCK: 'TRUCK',
+  CARD: 'CARD',
+  SHOPPING: 'SHOPPING',
+  BAG: 'BAG'
+};

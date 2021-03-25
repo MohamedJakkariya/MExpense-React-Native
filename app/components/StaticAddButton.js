@@ -12,9 +12,19 @@ import { IconViewOption } from '../utility';
 import { addExpense } from '../redux/reducers/expenseReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBalance, subtractBalance } from '../redux/reducers/balanceReducer';
+import icon from '../constants/icons';
 
 // TODO: Define dropdown options
-const dropdownOption = ['Default', 'Coffee', 'Tag', 'Bookmark', 'Truck', 'Card', 'Shopping', 'Bag'];
+const dropdownOption = [
+  icon.DEFAULT,
+  icon.COFFEE,
+  icon.TAG,
+  icon.BOOKMARK,
+  icon.TRUCK,
+  icon.CARD,
+  icon.SHOPPING,
+  icon.BAG
+];
 
 const StaticAddButton = () => {
   const [modalVisible, setModalVisible] = useState(false);

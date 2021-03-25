@@ -9,9 +9,11 @@ import CardIcon from '../../assets/icons/credit-card.svg';
 import CartIcon from '../../assets/icons/shopping-cart.svg';
 import BagIcon from '../../assets/icons/shopping-bag.svg';
 
+import icons from '../constants/icons';
+
 export const IconViewOption = [
   {
-    value: 'DEFAULT',
+    value: icons.DEFAULT,
     icon: (
       <CarotIcon
         width={15}
@@ -23,7 +25,7 @@ export const IconViewOption = [
     )
   },
   {
-    value: 'COFFEE',
+    value: icons.COFFEE,
     icon: (
       <CoffeIcon
         width={25}
@@ -35,7 +37,7 @@ export const IconViewOption = [
     )
   },
   {
-    value: 'TAG',
+    value: icons.TAG,
     icon: (
       <TagIcon
         width={25}
@@ -47,7 +49,7 @@ export const IconViewOption = [
     )
   },
   {
-    value: 'BOOKMARK',
+    value: icons.BOOKMARK,
     icon: (
       <BookMarkIcon
         width={25}
@@ -59,7 +61,7 @@ export const IconViewOption = [
     )
   },
   {
-    value: 'TRUCK',
+    value: icons.TRUCK,
     icon: (
       <TruckIcon
         width={25}
@@ -71,7 +73,7 @@ export const IconViewOption = [
     )
   },
   {
-    value: 'CARD',
+    value: icons.CARD,
     icon: (
       <CardIcon
         width={25}
@@ -83,7 +85,7 @@ export const IconViewOption = [
     )
   },
   {
-    value: 'SHOPPING',
+    value: icons.SHOPPING,
     icon: (
       <CartIcon
         width={25}
@@ -95,7 +97,7 @@ export const IconViewOption = [
     )
   },
   {
-    value: 'BAG',
+    value: icons.BAG,
     icon: (
       <BagIcon
         width={25}
