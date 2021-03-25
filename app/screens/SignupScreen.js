@@ -18,7 +18,8 @@ const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [c_password, setCPassword] = useState('');
-  const [eye_view, setEyeView] = useState(true);
+  const [eye_view_password, setEyeViewPassword] = useState(true);
+  const [eye_view_c_password, setEyeViewCPassword] = useState(true);
 
   const handleRegisterUser = async () => {
     // ! Validation
@@ -111,7 +112,7 @@ const SignupScreen = ({ navigation }) => {
             <TextInput
               selectionColor={color.white}
               mode='outlined'
-              secureTextEntry={eye_view}
+              secureTextEntry={eye_view_password}
               autoCorrect={false}
               style={{
                 width: '90%',
@@ -133,13 +134,21 @@ const SignupScreen = ({ navigation }) => {
                 top: 10,
                 padding: 17
               }}
-              onPress={() => setEyeView(true)}
+              onPress={() => setEyeViewPassword(!eye_view_password)}
             >
-              <EyeOffIcon
-                style={{
-                  bottom: 5
-                }}
-              />
+              {eye_view_password ? (
+                <EyeOffIcon
+                  style={{
+                    bottom: 5
+                  }}
+                />
+              ) : (
+                <EyeIcon
+                  style={{
+                    bottom: 5
+                  }}
+                />
+              )}
             </TouchableOpacity>
           </View>
 
@@ -157,7 +166,7 @@ const SignupScreen = ({ navigation }) => {
             <TextInput
               selectionColor={color.white}
               mode='outlined'
-              secureTextEntry={eye_view}
+              secureTextEntry={eye_view_c_password}
               autoCorrect={false}
               style={{
                 width: '90%',
@@ -179,15 +188,22 @@ const SignupScreen = ({ navigation }) => {
                 top: 10,
                 padding: 17
               }}
-              onPress={() => setEyeView(true)}
+              onPress={() => setEyeViewCPassword(!eye_view_c_password)}
             >
-              {
+              {eye_view_c_password ? (
                 <EyeOffIcon
                   style={{
                     bottom: 5
                   }}
                 />
-              }
+              ) : (
+                <EyeIcon
+                  color='white'
+                  style={{
+                    bottom: 5
+                  }}
+                />
+              )}
             </TouchableOpacity>
           </View>
         </View>
