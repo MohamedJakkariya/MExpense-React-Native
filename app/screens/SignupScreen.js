@@ -1,23 +1,60 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import color from '../constants/color';
-import Logo from '../../assets/Logo.svg';
 import { TextInput } from 'react-native-paper';
+import { showMessage, hideMessage } from 'react-native-flash-message';
+import { validateEmail } from '../utility';
+
+import FlashMessage from 'react-native-flash-message';
+
+import Logo from '../../assets/Logo.svg';
 import UserIcon from '../../assets/icons/user.svg';
-import EyeIcon from '../../assets/icons/eye-off.svg';
+import EyeOffIcon from '../../assets/icons/eye-off.svg';
+import EyeIcon from '../../assets/icons/eye.svg';
+
+import color from '../constants/color';
 
 // * Welcome screen Component
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [c_password, setCPassword] = useState('');
+  const [eye_view, setEyeView] = useState(true);
+
+  const handleRegisterUser = async () => {
+    // ! Validation
+    if (!(await validateEmail(email)))
+      return showMessage({
+        message: 'Please enter correct email.',
+        type: 'warning'
+      });
+
+    if (!password || !c_password)
+      return showMessage({
+        message: 'Password and confirm password are needed.',
+        type: 'warning'
+      });
+
+    if (!password.match(/^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))
+      return showMessage({
+        message: 'Give some strong password(8 min).',
+        type: 'warning'
+      });
+
+    if (password !== c_password)
+      return showMessage({
+        message: 'Passwords are mismatch.',
+        type: 'warning'
+      });
+
+    // Redirect to home page
+    // navigation.navigate('Index', { screen: 'Home' });
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.backgroundFirstAngle} />
       <View style={styles.backgroundSecondAngle} />
       <Logo style={styles.logoImage} />
-
       <View
         style={{
           width: '100%',
@@ -49,12 +86,13 @@ const SignupScreen = ({ navigation }) => {
               style={{
                 width: '90%',
                 backgroundColor: color.green,
-                fontSize: 16
+                fontSize: 16,
+                color: color.white
               }}
               label='Email'
               value={email}
               dense={false}
-              onChangeText={text => setEmail(text)}
+              onChangeText={setEmail}
             />
             <UserIcon style={styles.UserIcon} />
           </View>
@@ -73,7 +111,7 @@ const SignupScreen = ({ navigation }) => {
             <TextInput
               selectionColor={color.white}
               mode='outlined'
-              secureTextEntry={true}
+              secureTextEntry={eye_view}
               autoCorrect={false}
               style={{
                 width: '90%',
@@ -82,7 +120,7 @@ const SignupScreen = ({ navigation }) => {
               }}
               label='Password'
               value={password}
-              onChangeText={text => setPassword(text)}
+              onChangeText={setPassword}
             />
             <TouchableOpacity
               style={{
@@ -95,8 +133,9 @@ const SignupScreen = ({ navigation }) => {
                 top: 10,
                 padding: 17
               }}
+              onPress={() => setEyeView(true)}
             >
-              <EyeIcon
+              <EyeOffIcon
                 style={{
                   bottom: 5
                 }}
@@ -118,7 +157,7 @@ const SignupScreen = ({ navigation }) => {
             <TextInput
               selectionColor={color.white}
               mode='outlined'
-              secureTextEntry={true}
+              secureTextEntry={eye_view}
               autoCorrect={false}
               style={{
                 width: '90%',
@@ -140,23 +179,57 @@ const SignupScreen = ({ navigation }) => {
                 top: 10,
                 padding: 17
               }}
+              onPress={() => setEyeView(true)}
             >
-              <EyeIcon
-                style={{
-                  bottom: 5
-                }}
-              />
+              {
+                <EyeOffIcon
+                  style={{
+                    bottom: 5
+                  }}
+                />
+              }
             </TouchableOpacity>
           </View>
         </View>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Index', { screen: 'Home' })} style={styles.button}>
+        <TouchableOpacity onPress={handleRegisterUser} style={styles.button}>
           <Text style={styles.buttonText}>SIGNUP</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => alert('Clicked login!')} style={styles.signupButton}>
           <Text style={[styles.buttonText, styles.signupButtonText]}>LOGIN</Text>
         </TouchableOpacity>
+      </View>
+
+      <View
+        style={{
+          position: 'absolute',
+          top: 25,
+          padding: 0,
+          height: 20
+        }}
+      >
+        <Text
+          style={{
+            flex: 1,
+            width: '100%',
+            padding: 0,
+            borderRadius: 20
+          }}
+        >
+          {/* Setting up Flashmessage component  */}
+          <FlashMessage
+            position='bottom'
+            style={{
+              padding: 0,
+              margin: 0,
+              borderRadius: 10,
+              width: '100%'
+            }}
+            duration={1500}
+          />
+          {/* <--- here as last component */}
+        </Text>
       </View>
     </View>
   );
