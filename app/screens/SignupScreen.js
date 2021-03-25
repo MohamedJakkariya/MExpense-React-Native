@@ -4,6 +4,8 @@ import { TextInput } from 'react-native-paper';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import { validateEmail } from '../utility';
 
+import deviceStorage from '../services/deviceStorage';
+
 import FlashMessage from 'react-native-flash-message';
 
 import Logo from '../../assets/Logo.svg';
@@ -12,6 +14,8 @@ import EyeOffIcon from '../../assets/icons/eye-off.svg';
 import EyeIcon from '../../assets/icons/eye.svg';
 
 import color from '../constants/color';
+
+import axios from 'axios';
 
 // * Welcome screen Component
 const SignupScreen = ({ navigation }) => {
@@ -49,8 +53,19 @@ const SignupScreen = ({ navigation }) => {
         type: 'warning'
       });
 
+    // try {
+    //   const response = await axios.post('http://localhost:4000/v1/user/register', {
+    //     email: state.email,
+    //     password: state.password,
+    //     c_password: state.c_password
+    //   });
+    //   console.log(response);
+    // } catch (e) {
+    //   console.log(e);
+    // }
+
     // Redirect to home page
-    return navigation.navigate('Index', { screen: 'Home' });
+    await navigation.navigate('Index', { screen: 'Home' });
   };
 
   return (
