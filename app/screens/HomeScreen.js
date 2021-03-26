@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, StatusBar } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
 
 import color from '../constants/color';
 
@@ -8,6 +7,7 @@ import ExpenseCard from '../components/ExpenseCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExpenses, setExpense } from '../redux/reducers/expenseReducer';
 import { setBalance } from '../redux/reducers/balanceReducer';
+import { showMessage } from 'react-native-flash-message';
 
 import StaticAddButton from '../components/StaticAddButton';
 import BalanceCard from '../components/BalanceCard';
@@ -19,7 +19,7 @@ import axios from 'axios';
 
 export default function HomeScreen({ navigation }) {
   const data = useSelector(getExpenses);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -33,26 +33,27 @@ export default function HomeScreen({ navigation }) {
           url: 'http://192.168.43.19:4000/v1/expense/view',
           method: 'get',
           headers: { Authorization: token }
-        }).then(response => {
-          if (response.data.result) {
-            // TODO: set expense state
-            dispatch(
-              setExpense({ summary: response.data.summary, expenses: response.data.expenses }, 'expenses/setExpense')
-            );
+        })
+          .then(response => {
+            if (response.data.result) {
+              // TODO: set expense state
+              dispatch(
+                setExpense({ summary: response.data.summary, expenses: response.data.expenses }, 'expenses/setExpense')
+              );
 
-            dispatch(setBalance(+response.data.summary.balance, 'balances/setBalance'));
+              dispatch(setBalance(+response.data.summary.balance, 'balances/setBalance'));
 
-            // TODO: Redirect to home page
-            navigation.navigate('Index', { screen: 'Home' });
-          }
-        });
+              // TODO: Redirect to home page
+              navigation.navigate('Index', { screen: 'Home' });
+            }
+          })
+          .finally(() => {
+            setLoading(false);
+          });
       })
       .catch(e => {
         console.log(e);
         navigation.navigate('Login');
-      })
-      .finally(() => {
-        setLoading(false);
       });
   }, []);
 
@@ -71,12 +72,11 @@ export default function HomeScreen({ navigation }) {
           color: color.white
         }}
       />
-
       <StaticAddButton />
       <ScrollView style={styles.wrapper}>
         <StatusBar backgroundColor={color.primary} />
 
-        <BalanceCard />
+        <BalanceCard showMessage={showMessage} />
 
         <View style={styles.bottomContainer}>
           <Text

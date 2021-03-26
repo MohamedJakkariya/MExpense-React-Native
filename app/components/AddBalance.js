@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Alert, Modal, Text, Pressable, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
 
 import RupeeRedIcon from '../../assets/icons/money_red.svg';
 import PlusIcon from '../../assets/icons/plus.svg';
 
 import color from '../constants/color';
 import { addBalance, getBalance, resetBalance } from '../redux/reducers/balanceReducer';
+
+import uri from '../constants';
+import axios from 'axios';
+import deviceStorage from '../services/deviceStorage';
 
 const AddBalance = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,23 +21,80 @@ const AddBalance = () => {
   const existBalance = useSelector(getBalance);
   const dispatch = useDispatch();
 
-  const hanldeAddBalanceButton = () => {
+  const hanldeAddBalanceButton = async () => {
     // TODO: Close the modal
     setModalVisible(!modalVisible);
 
+    // TODO: Made updated balance
+    const updated_balance = existBalance + +balance;
+
     // TODO: Update the new balance
-    dispatch(addBalance(existBalance + +balance, 'balance/addBalance'));
+    dispatch(addBalance(updated_balance, 'balances/addBalance'));
+
+    try {
+      const token = await deviceStorage.getData('auth_token');
+      const response = await axios({
+        method: 'post',
+        url: `${uri.DEVELOPMENT_URL}/balance/update`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        },
+        data: JSON.stringify({
+          balance: updated_balance
+        })
+      });
+
+      if (response.data.result)
+        showMessage({
+          message: response.data.message,
+          type: 'success'
+        });
+    } catch (e) {
+      console.log(e);
+      showMessage({
+        message: e.response.data.message,
+        type: 'warning'
+      });
+    }
 
     // TODO: reset amount
     setBalance(null);
   };
 
-  const hanldeResetBalanceButton = () => {
+  const hanldeResetBalanceButton = async () => {
     // TODO: Update the new balance
-    dispatch(resetBalance(0, 'balance/resetBalance'));
+    dispatch(resetBalance(0, 'balances/resetBalance'));
 
     // TODO: Close the modal
     setModalVisible(!modalVisible);
+
+    try {
+      const token = await deviceStorage.getData('auth_token');
+      const response = await axios({
+        method: 'post',
+        url: `${uri.DEVELOPMENT_URL}/balance/update`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        },
+        data: JSON.stringify({
+          balance: 0
+        })
+      });
+
+      if (response.data.result)
+        showMessage({
+          message: response.data.message,
+          type: 'success'
+        });
+    } catch (e) {
+      console.log(e);
+      showMessage({
+        message: e.response.data.message,
+        type: 'warning'
+      });
+    }
 
     // TODO: reset amount
     setBalance(null);
