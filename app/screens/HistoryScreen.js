@@ -10,7 +10,7 @@ import color from '../constants/color';
 import { getExpenses } from '../redux/reducers/expenseReducer';
 
 const HistroyScreen = ({ navigation }) => {
-  const expenses = useSelector(getExpenses);
+  const data = useSelector(getExpenses);
 
   return (
     <View style={styles.screen_wrapper}>
@@ -21,7 +21,7 @@ const HistroyScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <ScrollView style={styles.history_wrapper}>
-        {Object.entries(expenses.data).map((expense, index) => {
+        {Object.entries(data.expenses).map((expense, index) => {
           return (
             <View style={styles.day_wrapper} key={expense[0]}>
               <Text

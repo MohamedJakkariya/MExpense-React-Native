@@ -1,8 +1,12 @@
 {
+  "document": {
+    "id": "605c4609a8dfd33a5cb06699",
+    "name": "User"
+  },
   "summary": {
     "balance_amount": 200
   },
-  "data": {
+  "expenses": {
     "today": [
       {
         "id": "1",

@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import expenseJson from '../../json/expenses.json';
 
 const expenseSlice = createSlice({
-  name: 'expense',
+  name: 'expenses',
   initialState: expenseJson,
   reducers: {
     addExpense: (state, action) => {
-      state.data.today.unshift(action.payload);
+      state.expenses.today.unshift(action.payload);
     },
     removeExpense: (state, action) => {}
   }
@@ -15,6 +15,6 @@ const expenseSlice = createSlice({
 
 export const { addExpense, removeExpense } = expenseSlice.actions;
 
-export const getExpenses = state => state.expense;
+export const getExpenses = state => state.expenses;
 
 export default expenseSlice.reducer;

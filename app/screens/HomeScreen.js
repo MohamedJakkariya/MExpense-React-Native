@@ -10,7 +10,7 @@ import StaticAddButton from '../components/StaticAddButton';
 import BalanceCard from '../components/BalanceCard';
 
 export default function HomeScreen() {
-  const expenses = useSelector(getExpenses);
+  const data = useSelector(getExpenses);
 
   return (
     <View
@@ -40,7 +40,7 @@ export default function HomeScreen() {
           >
             Recent expense
           </Text>
-          {expenses.data.today.map(expense => (
+          {data.expenses.today.map(expense => (
             <ExpenseCard
               icon={expense.icon}
               key={expense.id}

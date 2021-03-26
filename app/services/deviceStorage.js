@@ -33,7 +33,7 @@ const getData = async (key, navigation) => {
     // TODO: redirect to login page
     if (key === 'auth_token' && !value) {
       // value previously stored
-      navigation.navigate('Signup');
+      navigation.navigate('Login');
     }
   } catch (e) {
     // error reading value

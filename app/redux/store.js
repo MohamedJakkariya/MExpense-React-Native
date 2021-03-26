@@ -4,8 +4,8 @@ import expenseReducer from './reducers/expenseReducer';
 
 const store = configureStore({
   reducer: {
-    expense: expenseReducer,
-    balance: balanceReducer
+    expenses: expenseReducer,
+    balances: balanceReducer
   }
 });
 

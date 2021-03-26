@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppLoading from 'expo-app-loading';
 
 import { AppRegistry } from 'react-native';
@@ -19,6 +19,8 @@ import IndexScreen from './app/screens';
 import color from './app/constants/color';
 
 import store from './app/redux/store';
+
+import deviceStorage from './app/services/deviceStorage';
 
 const theme = {
   ...DefaultTheme,
@@ -53,17 +55,24 @@ function App() {
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
           }}
         >
+          <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>
   );
 }
 
-export default () => {
+export default ({ navigation }) => {
+  useEffect(() => {
+    deviceStorage.getData('auth_token').then(token => {
+      if (token) navigation.navigate('Index');
+      console.log(token);
+    });
+  }, []);
+
   return (
     <Provider store={store}>
       <App />
