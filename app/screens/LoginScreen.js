@@ -68,8 +68,6 @@ const LoginScreen = ({ navigation }) => {
         loading: false
       });
 
-      console.log(response.data);
-
       if (response.data.result) {
         // TODO: store the token into local storage
         await deviceStorage.storeData('auth_token', `Bearer ${response.data.token}`);
