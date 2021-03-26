@@ -80,9 +80,13 @@ const SignupScreen = ({ navigation }) => {
         loading: false
       });
 
-      if (response.data.result)
+      if (response.data.result) {
+        // TODO: store the token into local storage
+        await deviceStorage.storeData('auth_token', `Bearer ${response.data.token}`);
+
         // TODO: Redirect to home page
         await navigation.navigate('Index', { screen: 'Home' });
+      }
     } catch (e) {
       showMessage({
         message: e.response.data.message,
@@ -289,41 +293,22 @@ const SignupScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>SIGNUP</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => alert('Clicked login!')} style={styles.signupButton}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.signupButton}>
           <Text style={[styles.buttonText, styles.signupButtonText]}>LOGIN</Text>
         </TouchableOpacity>
       </View>
 
-      <View
+      {/* Setting up Flashmessage component  */}
+      <FlashMessage
+        position='top'
         style={{
-          position: 'absolute',
-          top: 25,
           padding: 0,
-          height: 20
+          margin: 0,
+          width: '100%'
         }}
-      >
-        <Text
-          style={{
-            flex: 1,
-            width: '100%',
-            padding: 0,
-            borderRadius: 20
-          }}
-        >
-          {/* Setting up Flashmessage component  */}
-          <FlashMessage
-            position='bottom'
-            style={{
-              padding: 0,
-              margin: 0,
-              borderRadius: 10,
-              width: '100%'
-            }}
-            duration={1500}
-          />
-          {/* <--- here as last component */}
-        </Text>
-      </View>
+        duration={1500}
+      />
+      {/* <--- here as last component */}
     </View>
   );
 };
