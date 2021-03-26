@@ -6,14 +6,22 @@ import { useSelector } from 'react-redux';
 
 import { getBalance } from '../redux/reducers/balanceReducer';
 
-import UserIcon from '../../assets/icons/User Icon.svg';
+import LogoutIcon from '../../assets/icons/log-out.svg';
 import MoneyIcon from '../../assets/icons/money.svg';
 
 import color from '../constants/color';
 import AddBalance from './AddBalance';
+import deviceStorage from '../services/deviceStorage';
 
-const BalanceCard = () => {
+const BalanceCard = ({ navigation }) => {
   const initialBalance = useSelector(getBalance);
+
+  const handleLogout = async () => {
+    // TODO: clear local storage
+    await deviceStorage.removeData('auth_token');
+
+    await navigation.navigate('Login');
+  };
 
   return (
     <View style={styles.topContainer}>
@@ -22,8 +30,8 @@ const BalanceCard = () => {
           Hello
           <Text style={styles.welcomTextHighLight}> MD</Text>,
         </Text>
-        <TouchableOpacity>
-          <UserIcon style={styles.UserIcon} />
+        <TouchableOpacity onPress={handleLogout}>
+          <LogoutIcon style={styles.UserIcon} />
         </TouchableOpacity>
       </View>
 
@@ -39,7 +47,7 @@ const BalanceCard = () => {
           >
             Balance
           </Text>
-          <AddBalance />
+          <AddBalance navigation={navigation} />
         </View>
 
         <View style={[styles.balanceBoxTop, styles.balanceBoxBottom]}>

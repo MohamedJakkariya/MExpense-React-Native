@@ -13,7 +13,7 @@ import uri from '../constants';
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
 
-const AddBalance = () => {
+const AddBalance = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [balance, setBalance] = useState(null);
   const [balanceButtonText, setBalanceButtonText] = useState('CANCEL');
@@ -33,6 +33,16 @@ const AddBalance = () => {
 
     try {
       const token = await deviceStorage.getData('auth_token');
+
+      if (!token) {
+        showMessage({
+          message: 'Logout success.',
+          type: 'success',
+          duration: 5000
+        });
+        return navigation.navigate('Login');
+      }
+
       const response = await axios({
         method: 'post',
         url: `${uri.DEVELOPMENT_URL}/balance/update`,
@@ -60,6 +70,7 @@ const AddBalance = () => {
 
     // TODO: reset amount
     setBalance(null);
+    setBalanceButtonText('CANCEL');
   };
 
   const hanldeResetBalanceButton = async () => {

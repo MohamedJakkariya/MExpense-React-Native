@@ -73,7 +73,7 @@ export default function HomeScreen({ navigation }) {
       <ScrollView style={styles.wrapper}>
         <StatusBar backgroundColor={color.primary} />
 
-        <BalanceCard showMessage={showMessage} />
+        <BalanceCard navigation={navigation} />
 
         <View style={styles.bottomContainer}>
           <Text
@@ -95,6 +95,7 @@ export default function HomeScreen({ navigation }) {
               amount={expense.amount}
               when={expense.when}
               description={expense.description}
+              navigation={navigation}
             />
           ))}
         </View>

@@ -32,7 +32,7 @@ const getData = async key => {
     return value;
   } catch (e) {
     // error reading value
-    navigation.navigate('Home');
+    console.log(e);
   }
 };
 
@@ -49,9 +49,23 @@ const getDataObject = async keyObject => {
   }
 };
 
+/**
+ * @param key = String
+ * @returns boolean
+ */
+const removeData = async key => {
+  try {
+    await AsyncStorage.removeItem(key);
+    return true;
+  } catch (exception) {
+    return false;
+  }
+};
+
 export default {
   getData,
   getDataObject,
   storeData,
-  storeDataObject
+  storeDataObject,
+  removeData
 };

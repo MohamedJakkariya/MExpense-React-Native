@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Alert, Modal, Text, Pressable, TextInput } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
-import moment from 'moment';
 import { showMessage } from 'react-native-flash-message';
 
 import AddStaticIcon from '../../assets/icons/static_add_button.svg';
