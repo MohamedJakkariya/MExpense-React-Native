@@ -46,7 +46,7 @@ export default function HomeScreen() {
               key={expense.id}
               amount={expense.amount}
               when={expense.when}
-              notes={expense.notes}
+              description={expense.description}
             />
           ))}
         </View>

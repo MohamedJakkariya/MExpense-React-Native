@@ -66,12 +66,12 @@ function App() {
 }
 
 export default ({ navigation }) => {
-  useEffect(() => {
-    deviceStorage.getData('auth_token').then(token => {
-      if (token) navigation.navigate('Index');
-      console.log(token);
-    });
-  }, []);
+  // useEffect(() => {
+  // deviceStorage.getData('auth_token').then(token => {
+  // if (token) navigation.navigate('Index');
+  // console.log(token);
+  // });
+  // }, []);
 
   return (
     <Provider store={store}>

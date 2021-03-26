@@ -12,7 +12,7 @@ import BagIcon from '../../assets/icons/shopping-bag.svg';
 import MinusIcon from '../../assets/icons/minus.svg';
 import MoneyIcon from '../../assets/icons/money_red.svg';
 
-const ExpenseCard = ({ icon, amount, when, notes }) => {
+const ExpenseCard = ({ icon, amount, when, description }) => {
   // TODO: Set icon selector
   const iconSelector = {
     coffee: <CoffeeIcon />,
@@ -36,7 +36,6 @@ const ExpenseCard = ({ icon, amount, when, notes }) => {
               fontWeight: 'bold',
               fontSize: 30,
               color: color.red,
-              // marginLeft: 15,
               textAlign: 'center'
             }}
           >
@@ -54,7 +53,7 @@ const ExpenseCard = ({ icon, amount, when, notes }) => {
               paddingLeft: 15
             }}
           >
-            {notes}
+            {description}
           </Text>
         </View>
       </View>
