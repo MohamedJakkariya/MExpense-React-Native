@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { showMessage, hideMessage } from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 import { validateEmail } from '../utility';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import deviceStorage from '../services/deviceStorage';
 
@@ -24,7 +25,9 @@ const SignupScreen = ({ navigation }) => {
     password: '',
     c_password: '',
     eye_view_password: true,
-    eye_view_c_password: true
+    eye_view_c_password: true,
+    loading: false,
+    error: ''
   });
 
   const handleRegisterUser = async () => {
@@ -53,23 +56,55 @@ const SignupScreen = ({ navigation }) => {
         type: 'warning'
       });
 
-    // try {
-    //   const response = await axios.post('http://localhost:4000/v1/user/register', {
-    //     email: state.email,
-    //     password: state.password,
-    //     c_password: state.c_password
-    //   });
-    //   console.log(response);
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    setState({
+      ...state,
+      loading: true
+    });
 
-    // Redirect to home page
-    await navigation.navigate('Index', { screen: 'Home' });
+    try {
+      const response = await axios({
+        url: 'http://192.168.43.19:4000/v1/user/register',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({
+          email: state.email,
+          password: state.password,
+          c_password: state.c_password
+        })
+      });
+
+      setState({
+        ...state,
+        loading: false
+      });
+
+      if (response.data.result)
+        // TODO: Redirect to home page
+        await navigation.navigate('Index', { screen: 'Home' });
+    } catch (e) {
+      showMessage({
+        message: e.response.data.message,
+        type: 'warning'
+      });
+    } finally {
+      setState({
+        ...state,
+        loading: false
+      });
+    }
   };
 
   return (
     <View style={styles.container}>
+      <Spinner
+        visible={state.loading}
+        textStyle={{
+          color: color.white
+        }}
+      />
+
       <View style={styles.backgroundFirstAngle} />
       <View style={styles.backgroundSecondAngle} />
       <Logo style={styles.logoImage} />
