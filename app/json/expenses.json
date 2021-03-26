@@ -6,52 +6,48 @@
   "summary": {
     "balance_amount": 200
   },
-  "expenses": {
-    "today": [
-      {
-        "id": "1",
-        "icon": "coffee",
-        "amount": 30.0,
-        "when": "11.06 PM",
-        "description": "cafe bar-hostel"
-      },
-      {
-        "id": "2",
-        "icon": "bag",
-        "amount": 24.0,
-        "when": "10.02 PM",
-        "description": "online order-cake"
-      },
-      {
-        "id": "3",
-        "icon": "shopping",
-        "amount": 245.0,
-        "when": "7.02 PM",
-        "description": "shopiing"
-      },
-      {
-        "id": "4",
-        "icon": "bag",
-        "amount": 50.5,
-        "when": "4.02 PM",
-        "description": "snacks"
-      }
-    ],
-    "yesterday": [
-      {
-        "id": "1",
-        "icon": "coffee",
-        "amount": 30.0,
-        "when": "11.06 PM",
-        "description": "cafe bar-hostel"
-      },
-      {
-        "id": "2",
-        "icon": "bag",
-        "amount": 24.0,
-        "when": "10.02 PM",
-        "description": "online order-cake"
-      }
-    ]
-  }
+  "expenses": [
+    {
+      "id": "1",
+      "icon": "coffee",
+      "amount": 30.0,
+      "when": "11.06 PM",
+      "description": "cafe bar-hostel"
+    },
+    {
+      "id": "2",
+      "icon": "bag",
+      "amount": 24.0,
+      "when": "10.02 PM",
+      "description": "online order-cake"
+    },
+    {
+      "id": "3",
+      "icon": "shopping",
+      "amount": 245.0,
+      "when": "7.02 PM",
+      "description": "shopiing"
+    },
+    {
+      "id": "4",
+      "icon": "bag",
+      "amount": 50.5,
+      "when": "4.02 PM",
+      "description": "snacks"
+    },
+    {
+      "id": "17",
+      "icon": "coffee",
+      "amount": 30.0,
+      "when": "11.06 PM",
+      "description": "cafe bar-hostel"
+    },
+    {
+      "id": "72",
+      "icon": "bag",
+      "amount": 24.0,
+      "when": "10.02 PM",
+      "description": "online order-cake"
+    }
+  ]
 }

@@ -40,7 +40,7 @@ export default function HomeScreen() {
           >
             Recent expense
           </Text>
-          {data.expenses.today.map(expense => (
+          {data.expenses.map(expense => (
             <ExpenseCard
               icon={expense.icon}
               key={expense.id}

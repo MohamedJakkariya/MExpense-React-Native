@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
+import { useDispatch } from 'react-redux';
 
 import axios from 'axios';
 import CheckBox from '@react-native-community/checkbox';
@@ -16,6 +17,7 @@ import EyeOffIcon from '../../assets/icons/eye-off.svg';
 import EyeIcon from '../../assets/icons/eye.svg';
 
 import deviceStorage from '../services/deviceStorage';
+import { setExpense } from '../redux/reducers/expenseReducer';
 
 // * Welcome screen Component
 const LoginScreen = ({ navigation }) => {
@@ -28,6 +30,8 @@ const LoginScreen = ({ navigation }) => {
 
     error: ''
   });
+
+  const dispatch = useDispatch();
 
   const handleLoginUser = async () => {
     setState({
@@ -56,6 +60,11 @@ const LoginScreen = ({ navigation }) => {
       if (response.data.result) {
         // TODO: store the token into local storage
         await deviceStorage.storeData('auth_token', `Bearer ${response.data.token}`);
+
+        // TODO: set expense state
+        dispatch(
+          setExpense({ summary: response.data.summary, expenses: response.data.expenses }, 'expenses/setExpense')
+        );
 
         // TODO: Redirect to home page
         await navigation.navigate('Index', { screen: 'Home' });

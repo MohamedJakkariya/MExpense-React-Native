@@ -21,27 +21,15 @@ const HistroyScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <ScrollView style={styles.history_wrapper}>
-        {Object.entries(data.expenses).map((expense, index) => {
+        {data.expenses.map((expense, index) => {
           return (
-            <View style={styles.day_wrapper} key={expense[0]}>
-              <Text
-                style={[
-                  styles.fontBasic,
-                  {
-                    color: color.primary,
-                    fontSize: 20,
-                    textAlign: 'right',
-                    fontWeight: 'bold',
-                    paddingRight: 5
-                  }
-                ]}
-              >
-                {expense[0].toUpperCase()}
-              </Text>
-
-              {expense[1].map(e => (
-                <ExpenseCard key={e.id} icon={e.icon} amount={e.amount} when={e.when} notes={e.notes} />
-              ))}
+            <View style={styles.day_wrapper} key={expense.id}>
+              <ExpenseCard
+                icon={expense.icon}
+                amount={expense.amount}
+                when={expense.when}
+                description={expense.description}
+              />
             </View>
           );
         })}
