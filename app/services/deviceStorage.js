@@ -26,15 +26,10 @@ const storeDataObject = async (key, valueObject) => {
 /**
  * @description reading single data
  */
-const getData = async (key, navigation) => {
+const getData = async key => {
   try {
     const value = await AsyncStorage.getItem(key);
-
-    // TODO: redirect to login page
-    if (key === 'auth_token' && !value) {
-      // value previously stored
-      navigation.navigate('Login');
-    }
+    return value;
   } catch (e) {
     // error reading value
     navigation.navigate('Home');

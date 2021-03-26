@@ -13,7 +13,7 @@ const expenseSlice = createSlice({
       state.expenses.unshift(action.payload);
     },
     removeExpense: (state, action) => {},
-    setExpense: (state, action) => state(action.payload)
+    setExpense: (state, action) => (state = action.payload)
   }
 });
 

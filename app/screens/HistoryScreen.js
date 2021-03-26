@@ -23,7 +23,7 @@ const HistroyScreen = ({ navigation }) => {
       <ScrollView style={styles.history_wrapper}>
         {data.expenses.map((expense, index) => {
           return (
-            <View style={styles.day_wrapper} key={expense.id}>
+            <View style={styles.day_wrapper} key={expense._id}>
               <ExpenseCard
                 icon={expense.icon}
                 amount={expense.amount}

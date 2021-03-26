@@ -1,16 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, StatusBar } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import color from '../constants/color';
 
 import ExpenseCard from '../components/ExpenseCard';
-import { useSelector } from 'react-redux';
-import { getExpenses } from '../redux/reducers/expenseReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExpenses, setExpense } from '../redux/reducers/expenseReducer';
+import { setBalance } from '../redux/reducers/balanceReducer';
+
 import StaticAddButton from '../components/StaticAddButton';
 import BalanceCard from '../components/BalanceCard';
+import FlashMessage from 'react-native-flash-message';
+import Spinner from 'react-native-loading-spinner-overlay';
+import deviceStorage from '../services/deviceStorage';
 
-export default function HomeScreen() {
+import axios from 'axios';
+
+export default function HomeScreen({ navigation }) {
   const data = useSelector(getExpenses);
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoading(true);
+
+    deviceStorage
+      .getData('auth_token')
+      .then(token => {
+        axios({
+          url: 'http://192.168.43.19:4000/v1/expense/view',
+          method: 'get',
+          headers: { Authorization: token }
+        }).then(response => {
+          if (response.data.result) {
+            // TODO: set expense state
+            dispatch(
+              setExpense({ summary: response.data.summary, expenses: response.data.expenses }, 'expenses/setExpense')
+            );
+
+            dispatch(setBalance(+response.data.summary.balance, 'balances/setBalance'));
+
+            // TODO: Redirect to home page
+            navigation.navigate('Index', { screen: 'Home' });
+          }
+        });
+      })
+      .catch(e => {
+        console.log(e);
+        navigation.navigate('Login');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <View
@@ -21,6 +65,13 @@ export default function HomeScreen() {
         zIndex: -1
       }}
     >
+      <Spinner
+        visible={loading}
+        textStyle={{
+          color: color.white
+        }}
+      />
+
       <StaticAddButton />
       <ScrollView style={styles.wrapper}>
         <StatusBar backgroundColor={color.primary} />
@@ -43,7 +94,7 @@ export default function HomeScreen() {
           {data.expenses.map(expense => (
             <ExpenseCard
               icon={expense.icon}
-              key={expense.id}
+              key={expense._id}
               amount={expense.amount}
               when={expense.when}
               description={expense.description}
@@ -51,6 +102,16 @@ export default function HomeScreen() {
           ))}
         </View>
       </ScrollView>
+
+      {/* Setting up Flashmessage component  */}
+      <FlashMessage
+        position='top'
+        style={{
+          width: '100%'
+        }}
+        duration={1500}
+      />
+      {/* <--- here as last component */}
     </View>
   );
 }

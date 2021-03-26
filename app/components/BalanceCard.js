@@ -1,28 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { getBalance, setBalance } from '../redux/reducers/balanceReducer';
+import { getBalance } from '../redux/reducers/balanceReducer';
 
 import UserIcon from '../../assets/icons/User Icon.svg';
 import MoneyIcon from '../../assets/icons/money.svg';
 
 import color from '../constants/color';
-import { getExpenses } from '../redux/reducers/expenseReducer';
 import AddBalance from './AddBalance';
 
 const BalanceCard = () => {
-  const expenses = useSelector(getExpenses);
   const initialBalance = useSelector(getBalance);
-
-  const dispatch = useDispatch();
-
-  // TODO: Set balance amount
-  useEffect(() => {
-    dispatch(setBalance(expenses.summary.balance_amount, 'balance/setBalance'));
-  }, []);
 
   return (
     <View style={styles.topContainer}>

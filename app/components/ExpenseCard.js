@@ -11,6 +11,7 @@ import CartIcon from '../../assets/icons/shopping-cart.svg';
 import BagIcon from '../../assets/icons/shopping-bag.svg';
 import MinusIcon from '../../assets/icons/minus.svg';
 import MoneyIcon from '../../assets/icons/money_red.svg';
+import moment from 'moment';
 
 const ExpenseCard = ({ icon, amount, when, description }) => {
   // TODO: Set icon selector
@@ -66,7 +67,7 @@ const ExpenseCard = ({ icon, amount, when, description }) => {
             color: color.white
           }}
         >
-          {when}
+          {moment(when).format('LT')}
         </Text>
       </View>
     </View>

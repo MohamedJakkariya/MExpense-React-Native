@@ -4,7 +4,7 @@
     "name": "User"
   },
   "summary": {
-    "balance_amount": 200
+    "balance": 200
   },
   "expenses": [
     {
