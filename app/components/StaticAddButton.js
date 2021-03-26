@@ -40,6 +40,8 @@ const StaticAddButton = () => {
   const dispatch = useDispatch();
 
   const handleAddExpenseButton = async () => {
+    if (!amount) return;
+
     // TODO: Made updated balance
     const updated_balance = existBalance - +amount;
 
@@ -84,7 +86,6 @@ const StaticAddButton = () => {
           type: 'success'
         });
     } catch (e) {
-      console.log(e);
       showMessage({
         message: e.response.data.message,
         type: 'warning'
@@ -96,7 +97,7 @@ const StaticAddButton = () => {
     // TODO: reset Text, amount, iconOption
     setNotes('');
     setAmount(null);
-    setIconOption('Default');
+    setIconOption(dropdownOption[0]);
   };
 
   return (

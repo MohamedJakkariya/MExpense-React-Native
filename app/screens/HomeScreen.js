@@ -26,35 +26,32 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     setLoading(true);
 
-    deviceStorage
-      .getData('auth_token')
-      .then(token => {
-        axios({
-          url: 'http://192.168.43.19:4000/v1/expense/view',
-          method: 'get',
-          headers: { Authorization: token }
-        })
-          .then(response => {
-            if (response.data.result) {
-              // TODO: set expense state
-              dispatch(
-                setExpense({ summary: response.data.summary, expenses: response.data.expenses }, 'expenses/setExpense')
-              );
-
-              dispatch(setBalance(+response.data.summary.balance, 'balances/setBalance'));
-
-              // TODO: Redirect to home page
-              navigation.navigate('Index', { screen: 'Home' });
-            }
-          })
-          .finally(() => {
-            setLoading(false);
-          });
+    deviceStorage.getData('auth_token').then(token => {
+      axios({
+        url: 'http://192.168.43.19:4000/v1/expense/view',
+        method: 'get',
+        headers: { Authorization: token }
       })
-      .catch(e => {
-        console.log(e);
-        navigation.navigate('Login');
-      });
+        .then(response => {
+          if (response.data.result) {
+            // TODO: set expense state
+            dispatch(
+              setExpense({ summary: response.data.summary, expenses: response.data.expenses }, 'expenses/setExpense')
+            );
+
+            dispatch(setBalance(+response.data.summary.balance, 'balances/setBalance'));
+
+            // TODO: Redirect to home page
+            navigation.navigate('Index', { screen: 'Home' });
+          }
+        })
+        .catch(e => {
+          navigation.navigate('Login');
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    });
   }, []);
 
   return (

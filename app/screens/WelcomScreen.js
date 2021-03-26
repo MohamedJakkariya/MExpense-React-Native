@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import color from '../constants/color';
 import Logo from '../../assets/Logo.svg';
+import deviceStorage from '../services/deviceStorage';
 
 // * Welcome screen Component
 const WelcomScreen = ({ navigation }) => {
+  useEffect(() => {
+    deviceStorage.getData('auth_token').then(token => {
+      if (token) return navigation.navigate('Index', { screen: 'Home' });
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.backgroundFirstAngle} />
