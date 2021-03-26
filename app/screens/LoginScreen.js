@@ -10,8 +10,6 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import color from '../constants/color';
 
-import { validateEmail } from '../utility';
-
 import Logo from '../../assets/Logo.svg';
 import UserIcon from '../../assets/icons/user.svg';
 import EyeOffIcon from '../../assets/icons/eye-off.svg';
@@ -32,19 +30,6 @@ const LoginScreen = ({ navigation }) => {
   });
 
   const handleLoginUser = async () => {
-    // ! Validation
-    if (!(await validateEmail(state.email)))
-      return showMessage({
-        message: 'Please enter correct email.',
-        type: 'warning'
-      });
-
-    if (!state.password)
-      return showMessage({
-        message: 'Password is needed.',
-        type: 'warning'
-      });
-
     setState({
       ...state,
       loading: true

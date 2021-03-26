@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
-import { validateEmail } from '../utility';
+
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import deviceStorage from '../services/deviceStorage';
@@ -31,31 +31,6 @@ const SignupScreen = ({ navigation }) => {
   });
 
   const handleRegisterUser = async () => {
-    // ! Validation
-    if (!(await validateEmail(state.email)))
-      return showMessage({
-        message: 'Please enter correct email.',
-        type: 'warning'
-      });
-
-    if (!state.password || !state.c_password)
-      return showMessage({
-        message: 'Password and confirm password are needed.',
-        type: 'warning'
-      });
-
-    if (!state.password.match(/^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))
-      return showMessage({
-        message: 'Give some strong password(8 min).',
-        type: 'warning'
-      });
-
-    if (state.password !== state.c_password)
-      return showMessage({
-        message: 'Passwords are mismatch.',
-        type: 'warning'
-      });
-
     setState({
       ...state,
       loading: true
