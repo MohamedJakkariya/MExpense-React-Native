@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Alert, Modal, Text, Pressable, TextInput } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import moment from 'moment';
+import { showMessage } from 'react-native-flash-message';
 
 import AddStaticIcon from '../../assets/icons/static_add_button.svg';
 import RupeeRedIcon from '../../assets/icons/money_red.svg';
@@ -13,6 +14,9 @@ import { addExpense } from '../redux/reducers/expenseReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBalance, subtractBalance } from '../redux/reducers/balanceReducer';
 import icon from '../constants/icons';
+import deviceStorage from '../services/deviceStorage';
+import uri from '../constants';
+import axios from 'axios';
 
 // TODO: Define dropdown options
 const dropdownOption = [
@@ -35,23 +39,57 @@ const StaticAddButton = () => {
   const existBalance = useSelector(getBalance);
   const dispatch = useDispatch();
 
-  const handleAddExpenseButton = () => {
-    dispatch(
-      addExpense(
-        {
-          id: Math.random(3),
-          icon: iconOption,
-          amount: +amount,
-          when: moment().format('LT'),
-          description: notes
-        },
-        'balance/addExpense'
-      )
-    );
+  const handleAddExpenseButton = async () => {
+    // TODO: Made updated balance
+    const updated_balance = existBalance - +amount;
 
     // TODO: Update the new balance
-    dispatch(subtractBalance(existBalance - +amount, 'balance/subtractBalance'));
+    dispatch(subtractBalance(updated_balance, 'balances/subtractBalance'));
 
+    try {
+      const token = await deviceStorage.getData('auth_token');
+
+      const response = await axios({
+        method: 'post',
+        url: `${uri.DEVELOPMENT_URL}/expense/add`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        },
+        data: JSON.stringify({
+          icon: iconOption,
+          amount: +amount,
+          when: new Date().toISOString(),
+          description: notes,
+          balance: updated_balance
+        })
+      });
+
+      dispatch(
+        addExpense(
+          {
+            _id: response.data.document._id,
+            icon: iconOption,
+            amount: +amount,
+            when: new Date().toISOString(),
+            description: notes
+          },
+          'expenses/addExpense'
+        )
+      );
+
+      if (response.data.result)
+        showMessage({
+          message: response.data.message,
+          type: 'success'
+        });
+    } catch (e) {
+      console.log(e);
+      showMessage({
+        message: e.response.data.message,
+        type: 'warning'
+      });
+    }
     // TODO: Close the modal
     setModalVisible(!modalVisible);
 

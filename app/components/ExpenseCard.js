@@ -67,7 +67,7 @@ const ExpenseCard = ({ icon, amount, when, description }) => {
             color: color.white
           }}
         >
-          {moment(when).format('LT')}
+          {moment(new Date(when)).format('LT')}
         </Text>
       </View>
     </View>
