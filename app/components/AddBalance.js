@@ -28,20 +28,19 @@ const AddBalance = ({ navigation }) => {
     // TODO: Made updated balance
     const updated_balance = existBalance + +balance;
 
-    // TODO: Update the new balance
-    dispatch(addBalance(updated_balance, 'balances/addBalance'));
-
     try {
       const token = await deviceStorage.getData('auth_token');
 
       if (!token) {
         showMessage({
-          message: 'Logout success.',
-          type: 'success',
-          duration: 5000
+          message: 'Login to continue.',
+          type: 'success'
         });
         return navigation.navigate('Login');
       }
+
+      // TODO: Update the new balance
+      dispatch(addBalance(updated_balance, 'balances/addBalance'));
 
       const response = await axios({
         method: 'post',
