@@ -7,7 +7,6 @@ import ExpenseCard from '../components/ExpenseCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExpenses, setExpense } from '../redux/reducers/expenseReducer';
 import { setBalance } from '../redux/reducers/balanceReducer';
-import { showMessage } from 'react-native-flash-message';
 
 import StaticAddButton from '../components/StaticAddButton';
 import BalanceCard from '../components/BalanceCard';
@@ -16,6 +15,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import deviceStorage from '../services/deviceStorage';
 
 import axios from 'axios';
+import uri from '../constants';
 
 export default function HomeScreen({ navigation }) {
   const data = useSelector(getExpenses);
@@ -28,7 +28,7 @@ export default function HomeScreen({ navigation }) {
 
     deviceStorage.getData('auth_token').then(token => {
       axios({
-        url: 'http://192.168.43.19:4000/v1/expense/view',
+        url: `${uri.BASE_URL}/expense/view`,
         method: 'get',
         headers: { Authorization: token }
       })

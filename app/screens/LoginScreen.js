@@ -15,7 +15,7 @@ import Logo from '../../assets/Logo.svg';
 import UserIcon from '../../assets/icons/user.svg';
 import EyeOffIcon from '../../assets/icons/eye-off.svg';
 import EyeIcon from '../../assets/icons/eye.svg';
-
+import uri from '../constants'
 import deviceStorage from '../services/deviceStorage';
 import { setExpense } from '../redux/reducers/expenseReducer';
 
@@ -41,7 +41,7 @@ const LoginScreen = ({ navigation }) => {
 
     try {
       const response = await axios({
-        url: 'http://192.168.43.19:4000/v1/user/login',
+        url: `${uri.BASE_URL}/user/login`,
         method: 'post',
         headers: {
           'Content-Type': 'application/json'

@@ -44,7 +44,7 @@ const AddBalance = ({ navigation }) => {
 
       const response = await axios({
         method: 'post',
-        url: `${uri.DEVELOPMENT_URL}/balance/update`,
+        url: `${uri.BASE_URL}/balance/update`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: token
@@ -83,7 +83,7 @@ const AddBalance = ({ navigation }) => {
       const token = await deviceStorage.getData('auth_token');
       const response = await axios({
         method: 'post',
-        url: `${uri.DEVELOPMENT_URL}/balance/update`,
+        url: `${uri.BASE_URL}/balance/update`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: token

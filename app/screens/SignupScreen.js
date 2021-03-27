@@ -17,6 +17,7 @@ import EyeIcon from '../../assets/icons/eye.svg';
 import color from '../constants/color';
 
 import axios from 'axios';
+import uri from '../constants'
 
 // * Welcome screen Component
 const SignupScreen = ({ navigation }) => {
@@ -38,7 +39,7 @@ const SignupScreen = ({ navigation }) => {
 
     try {
       const response = await axios({
-        url: 'http://192.168.43.19:4000/v1/user/register',
+        url: `${uri.BASE_URL}/user/register`,
         method: 'post',
         headers: {
           'Content-Type': 'application/json'

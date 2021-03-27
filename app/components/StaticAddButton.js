@@ -52,7 +52,7 @@ const StaticAddButton = () => {
 
       const response = await axios({
         method: 'post',
-        url: `${uri.DEVELOPMENT_URL}/expense/add`,
+        url: `${uri.BASE_URL}/expense/add`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: token
