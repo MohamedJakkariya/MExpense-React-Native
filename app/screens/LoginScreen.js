@@ -91,8 +91,6 @@ const LoginScreen = ({ navigation }) => {
         }}
       />
 
-      <View style={styles.backgroundFirstAngle} />
-      <View style={styles.backgroundSecondAngle} />
       <Logo style={styles.logoImage} width={84} height={84} />
 
       <View
@@ -100,8 +98,7 @@ const LoginScreen = ({ navigation }) => {
           width: '100%',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          bottom: 50
+          justifyContent: 'center'
         }}
       >
         {/* Input box container  */}
@@ -118,20 +115,24 @@ const LoginScreen = ({ navigation }) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              position: 'relative'
+              position: 'relative',
+              marginBottom: 15
             }}
           >
             <TextInput
               selectionColor={color.white}
               mode='outlined'
+              selectionColor='white'
               style={{
                 width: '90%',
-                backgroundColor: color.green,
-                fontSize: 16
+                backgroundColor: color.primary,
+                fontSize: 16,
+                color: color.white
               }}
               label='Email'
               value={state.email}
               dense={false}
+              autoFocus={true}
               onChangeText={text =>
                 setState({
                   ...state,
@@ -150,7 +151,8 @@ const LoginScreen = ({ navigation }) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              position: 'relative'
+              position: 'relative',
+              marginBottom: 5
             }}
           >
             <TextInput
@@ -160,7 +162,7 @@ const LoginScreen = ({ navigation }) => {
               autoCorrect={false}
               style={{
                 width: '90%',
-                backgroundColor: color.green,
+                backgroundColor: color.primary,
                 fontSize: 18
               }}
               label='Password'
@@ -283,15 +285,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: color.green
+    backgroundColor: color.primary
   },
 
   button: {
-    backgroundColor: color.white,
     width: 120,
     height: 40,
     borderRadius: 7,
-    top: 15
+    top: 15,
+    backgroundColor: color.white
   },
   buttonText: {
     color: color.primary,
@@ -302,33 +304,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
 
-  // TODO: Rotate background color angle
-  backgroundFirstAngle: {
-    top: -150,
-    left: -280,
-    width: '100%',
-    height: '150%',
-    backgroundColor: color.primary,
-    position: 'absolute',
-    transform: [{ rotate: '17deg' }]
-  },
-  backgroundSecondAngle: {
-    top: -200,
-    left: 100,
-    width: 300,
-    height: 500,
-    backgroundColor: color.primary,
-    position: 'absolute',
-    transform: [{ rotateX: '45deg' }, { rotateZ: '25deg' }]
-  },
-
   emailInput: {
     width: '70%',
     right: 20,
     bottom: 100,
     justifyContent: 'center',
     alignSelf: 'flex-end',
-    backgroundColor: color.green,
     color: color.white
   },
 
@@ -342,17 +323,15 @@ const styles = StyleSheet.create({
 
   logoImage: {
     position: 'absolute',
-    top: 100,
+    top: 120,
     alignSelf: 'center',
-    width: 100,
-    height: 100
+    width: 100
   },
 
   UserIcon: {
     position: 'absolute',
-    backgroundColor: color.green,
+    backgroundColor: color.primary,
     zIndex: 1,
-    color: color.white,
     right: 30,
     top: 18,
     padding: 15

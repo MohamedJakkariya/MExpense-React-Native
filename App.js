@@ -22,11 +22,13 @@ import store from './app/redux/store';
 
 const theme = {
   ...DefaultTheme,
-  roundness: 2,
+  roundness: 10,
   colors: {
     ...DefaultTheme.colors,
     primary: color.white,
-    accent: color.white
+    accent: color.white,
+    text: color.white,
+    placeholder: color.white
   }
 };
 
@@ -53,10 +55,10 @@ function App() {
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
           }}
         >
+          <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>
