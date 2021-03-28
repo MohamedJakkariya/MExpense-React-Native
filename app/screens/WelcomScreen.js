@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import color from '../constants/color';
+
 import Logo from '../../assets/Logo.svg';
+
+import color from '../constants/color';
 import deviceStorage from '../services/deviceStorage';
 
 // * Welcome screen Component

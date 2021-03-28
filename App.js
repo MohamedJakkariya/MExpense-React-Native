@@ -6,7 +6,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { name as appName } from './app.json';
 
 import { useFonts } from 'expo-font';
-import { StatusBar } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
@@ -16,6 +16,7 @@ import LoginScreen from './app/screens/LoginScreen';
 import SignupScreen from './app/screens/SignupScreen';
 import IndexScreen from './app/screens';
 
+import FlashMessage from 'react-native-flash-message';
 import color from './app/constants/color';
 
 import store from './app/redux/store';
@@ -46,22 +47,37 @@ function App() {
   }
 
   return (
-    <NavigationContainer>
-      <PaperProvider theme={theme}>
-        <StatusBar animated={true} backgroundColor={color.primary_light_1} />
+    <View
+      style={{
+        flex: 1
+      }}
+    >
+      <NavigationContainer>
+        <PaperProvider theme={theme}>
+          <StatusBar animated={true} backgroundColor={color.primary_light_1} />
 
-        <Stack.Navigator
-          screenOptions={{
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-          }}
-        >
-          <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
-        </Stack.Navigator>
-      </PaperProvider>
-    </NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+            }}
+          >
+            <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='Welcome' component={WelcomScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='Index' component={IndexScreen} options={{ headerShown: false }} />
+          </Stack.Navigator>
+        </PaperProvider>
+      </NavigationContainer>
+      {/* Setting up Flashmessage component  */}
+      <FlashMessage
+        position='top'
+        style={{
+          width: '100%'
+        }}
+        duration={1500}
+      />
+      {/* <--- here as last component */}
+    </View>
   );
 }
 

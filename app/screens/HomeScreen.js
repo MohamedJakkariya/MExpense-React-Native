@@ -10,7 +10,6 @@ import { setBalance } from '../redux/reducers/balanceReducer';
 
 import StaticAddButton from '../components/StaticAddButton';
 import BalanceCard from '../components/BalanceCard';
-import FlashMessage from 'react-native-flash-message';
 import Spinner from 'react-native-loading-spinner-overlay';
 import deviceStorage from '../services/deviceStorage';
 
@@ -100,16 +99,6 @@ export default function HomeScreen({ navigation }) {
           ))}
         </View>
       </ScrollView>
-
-      {/* Setting up Flashmessage component  */}
-      <FlashMessage
-        position='top'
-        style={{
-          width: '100%'
-        }}
-        duration={1500}
-      />
-      {/* <--- here as last component */}
     </View>
   );
 }

@@ -7,8 +7,6 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import deviceStorage from '../services/deviceStorage';
 
-import FlashMessage from 'react-native-flash-message';
-
 import Logo from '../../assets/Logo.svg';
 import UserIcon from '../../assets/icons/user.svg';
 import EyeOffIcon from '../../assets/icons/eye-off.svg';
@@ -85,8 +83,6 @@ const SignupScreen = ({ navigation }) => {
         }}
       />
 
-      <View style={styles.backgroundFirstAngle} />
-      <View style={styles.backgroundSecondAngle} />
       <Logo style={styles.logoImage} width={84} height={84} />
       <View
         style={{
@@ -110,7 +106,8 @@ const SignupScreen = ({ navigation }) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              position: 'relative'
+              position: 'relative',
+              marginBottom: 10
             }}
           >
             <TextInput
@@ -118,7 +115,7 @@ const SignupScreen = ({ navigation }) => {
               mode='outlined'
               style={{
                 width: '90%',
-                backgroundColor: color.green,
+                backgroundColor: color.primary,
                 fontSize: 16,
                 color: color.white
               }}
@@ -143,7 +140,8 @@ const SignupScreen = ({ navigation }) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              position: 'relative'
+              position: 'relative',
+              marginBottom: 10
             }}
           >
             <TextInput
@@ -153,7 +151,7 @@ const SignupScreen = ({ navigation }) => {
               autoCorrect={false}
               style={{
                 width: '90%',
-                backgroundColor: color.green,
+                backgroundColor: color.primary,
                 fontSize: 16
               }}
               label='Password'
@@ -217,7 +215,7 @@ const SignupScreen = ({ navigation }) => {
               autoCorrect={false}
               style={{
                 width: '90%',
-                backgroundColor: color.green,
+                backgroundColor: color.primary,
                 fontSize: 16
               }}
               label='Confirm Password'
@@ -273,18 +271,6 @@ const SignupScreen = ({ navigation }) => {
           <Text style={[styles.buttonText, styles.signupButtonText]}>LOGIN</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Setting up Flashmessage component  */}
-      <FlashMessage
-        position='top'
-        style={{
-          padding: 0,
-          margin: 0,
-          width: '100%'
-        }}
-        duration={1500}
-      />
-      {/* <--- here as last component */}
     </View>
   );
 };
@@ -297,7 +283,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: color.green
+    backgroundColor: color.primary
   },
 
   button: {
@@ -305,7 +291,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 40,
     borderRadius: 7,
-    top: 30
+    top: 15
   },
   buttonText: {
     color: color.primary,
@@ -364,7 +350,6 @@ const styles = StyleSheet.create({
 
   UserIcon: {
     position: 'absolute',
-    backgroundColor: color.green,
     zIndex: 1,
     color: color.white,
     right: 30,
@@ -375,7 +360,7 @@ const styles = StyleSheet.create({
   signupButton: {
     width: 120,
     height: 40,
-    top: 30
+    top: 15
   },
   signupButtonText: {
     fontSize: 13,

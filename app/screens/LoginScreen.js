@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 
 import axios from 'axios';
 import CheckBox from '@react-native-community/checkbox';
-import FlashMessage from 'react-native-flash-message';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import color from '../constants/color';
@@ -70,10 +69,12 @@ const LoginScreen = ({ navigation }) => {
         await navigation.navigate('Index', { screen: 'Home' });
       }
     } catch (e) {
-      showMessage({
-        message: e.response.data.message,
-        type: 'warning'
-      });
+      console.log(e.response.data.result);
+      if (!e.response.data.result)
+        showMessage({
+          message: e.response.data.message,
+          type: 'warning'
+        });
     } finally {
       setState({
         ...state,
@@ -263,16 +264,6 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Setting up Flashmessage component  */}
-      <FlashMessage
-        position='top'
-        style={{
-          width: '100%'
-        }}
-        duration={1500}
-      />
-      {/* <--- here as last component */}
     </View>
   );
 };
@@ -295,6 +286,7 @@ const styles = StyleSheet.create({
     top: 15,
     backgroundColor: color.white
   },
+
   buttonText: {
     color: color.primary,
     paddingTop: 8,
