@@ -2,27 +2,28 @@
   "expo": {
     "name": "MExpense",
     "slug": "MExpense",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#19456B"
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#19456B",
+      "barStyle": "light-content"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "package": "com.mohamedjakkariya.mexpense",
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adoptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#19456B"
       }
     },
     "web": {

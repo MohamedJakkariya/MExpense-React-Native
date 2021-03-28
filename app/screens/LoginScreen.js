@@ -15,7 +15,7 @@ import Logo from '../../assets/Logo.svg';
 import UserIcon from '../../assets/icons/user.svg';
 import EyeOffIcon from '../../assets/icons/eye-off.svg';
 import EyeIcon from '../../assets/icons/eye.svg';
-import uri from '../constants'
+import uri from '../constants';
 import deviceStorage from '../services/deviceStorage';
 import { setExpense } from '../redux/reducers/expenseReducer';
 
@@ -93,7 +93,7 @@ const LoginScreen = ({ navigation }) => {
 
       <View style={styles.backgroundFirstAngle} />
       <View style={styles.backgroundSecondAngle} />
-      <Logo style={styles.logoImage} />
+      <Logo style={styles.logoImage} width={84} height={84} />
 
       <View
         style={{

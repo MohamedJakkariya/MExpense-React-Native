@@ -17,7 +17,7 @@ import EyeIcon from '../../assets/icons/eye.svg';
 import color from '../constants/color';
 
 import axios from 'axios';
-import uri from '../constants'
+import uri from '../constants';
 
 // * Welcome screen Component
 const SignupScreen = ({ navigation }) => {
@@ -87,7 +87,7 @@ const SignupScreen = ({ navigation }) => {
 
       <View style={styles.backgroundFirstAngle} />
       <View style={styles.backgroundSecondAngle} />
-      <Logo style={styles.logoImage} />
+      <Logo style={styles.logoImage} width={84} height={84} />
       <View
         style={{
           width: '100%',

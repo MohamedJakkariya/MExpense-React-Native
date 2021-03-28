@@ -14,21 +14,34 @@ const WelcomScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.backgroundFirstAngle} />
-      <View style={styles.backgroundSecondAngle} />
-      <Logo style={styles.logoImage} />
+      <View
+        style={{
+          width: '100%',
+          alignSelf: 'center'
+        }}
+      >
+        <Logo style={styles.logoImage} width={84} height={84} />
 
-      <Text style={styles.mainTitle}>MANAGE YOUR EXPENSE</Text>
+        <Text style={styles.mainTitle}>MANAGE YOUR EXPENSE</Text>
+      </View>
 
-      <Text style={styles.quoteText}>How it's work ?</Text>
+      <View
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
+        <View style={styles.buttonWrapper}>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.button}>
+            <Text style={styles.buttonText}>LOGIN</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={styles.button}>
+            <Text style={styles.buttonText}>SIGNUP</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.buttonWrapper}>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.button}>
-          <Text style={styles.buttonText}>LOGIN</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={styles.button}>
-          <Text style={styles.buttonText}>SIGNUP</Text>
-        </TouchableOpacity>
+        <Text style={styles.quoteText}>How it's work ?</Text>
       </View>
     </View>
   );
@@ -41,48 +54,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    backgroundColor: color.green
-  },
-
-  // TODO: Rotate background color angle
-  backgroundFirstAngle: {
-    top: -150,
-    left: -280,
-    width: '100%',
-    height: '150%',
-    backgroundColor: color.primary,
-    position: 'absolute',
-    transform: [{ rotate: '17deg' }]
-  },
-  backgroundSecondAngle: {
-    top: -200,
-    left: 100,
-    width: 300,
-    height: 500,
-    backgroundColor: color.primary,
-    position: 'absolute',
-    transform: [{ rotateX: '45deg' }, { rotateZ: '25deg' }]
+    justifyContent: 'space-evenly',
+    backgroundColor: color.primary
   },
   logoImage: {
-    position: 'absolute',
-    top: 100,
-    alignSelf: 'center',
-    width: 100,
-    height: 100
+    alignSelf: 'center'
   },
 
   // TODO: Text styles
   mainTitle: {
-    fontSize: 30,
-    elevation: 1,
-    alignSelf: 'baseline',
-    textAlign: 'right',
-    bottom: 100,
-    right: 45,
+    fontSize: 24,
+    textAlign: 'center',
     fontWeight: 'bold',
     color: color.white,
-    fontFamily: 'poetsenOne'
+    fontFamily: 'poetsenOne',
+    width: '60%',
+    alignSelf: 'center',
+    paddingTop: 20
   },
   quoteText: {
     color: color.white,
@@ -94,7 +82,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    bottom: 80
+    paddingBottom: 30
   },
   button: {
     backgroundColor: color.white,
