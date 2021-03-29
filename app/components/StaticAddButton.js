@@ -51,7 +51,7 @@ const StaticAddButton = () => {
 
     // TODO: Update the new balance
     dispatch(subtractBalance(updated_balance, 'balances/subtractBalance'));
-    deviceStorage.storeData('balance', updated_balance);
+    deviceStorage.storeData('balance', `${updated_balance}`);
 
     try {
       const token = await deviceStorage.getData('auth_token');

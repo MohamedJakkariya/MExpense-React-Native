@@ -46,10 +46,7 @@ const getData = async key => {
 const getDataObject = async keyObject => {
   try {
     const jsonValue = await AsyncStorage.getItem(keyObject);
-
-    console.log('json value :: ', jsonValue);
-
-    return !jsonValue ? JSON.parse(jsonValue) : null;
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     // error reading value
   }
@@ -76,9 +73,7 @@ const addExpenseToLocal = async expense => {
   try {
     const allExpense = await getDataObject('expenses');
 
-    console.log('allexepnse :: ', allExpense.length);
-
-    if (allExpense.length) return await storeDataObject('expenses', [expense, ...allExpense]);
+    if (allExpense) return await storeDataObject('expenses', [expense, ...allExpense]);
 
     return await storeDataObject('expenses', [expense]);
   } catch (e) {

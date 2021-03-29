@@ -104,17 +104,16 @@ export default function HomeScreen({ navigation }) {
           >
             Recent expense
           </Text>
-          {data &&
-            data.expenses.map(expense => (
-              <ExpenseCard
-                icon={expense.icon}
-                key={expense.expense_id}
-                amount={expense.amount}
-                when={expense.when}
-                description={expense.description}
-                navigation={navigation}
-              />
-            ))}
+          {data.expenses.map(expense => (
+            <ExpenseCard
+              icon={expense.icon}
+              key={expense.expense_id}
+              amount={expense.amount}
+              when={expense.when}
+              description={expense.description}
+              navigation={navigation}
+            />
+          ))}
         </View>
       </ScrollView>
     </View>
