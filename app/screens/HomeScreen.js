@@ -104,10 +104,10 @@ export default function HomeScreen({ navigation }) {
           >
             Recent expense
           </Text>
-          {data.expenses.map(expense => (
+          {data.expenses.map((expense, index) => (
             <ExpenseCard
               icon={expense.icon}
-              key={expense.expense_id}
+              key={index}
               amount={expense.amount}
               when={expense.when}
               description={expense.description}
