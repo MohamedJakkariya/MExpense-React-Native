@@ -39,6 +39,9 @@ const HistroyScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <SwipeListView
+        style={{
+          marginTop: 10
+        }}
         data={data}
         renderItem={(data, rowMap) => (
           <View>
