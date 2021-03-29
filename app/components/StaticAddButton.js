@@ -19,9 +19,6 @@ import { customAlphabet } from 'nanoid/non-secure';
 
 const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 10);
 
-// import uri from '../constants';
-// import axios from 'axios';
-
 // TODO: Define dropdown options
 const dropdownOption = [
   icon.DEFAULT,
@@ -65,28 +62,12 @@ const StaticAddButton = () => {
       }
 
       const newExpense = {
-        expense_id: nanoid().toUpperCase(),
+        key: nanoid().toUpperCase(),
         icon: iconOption,
         amount: +amount,
         when: new Date().toISOString(),
         description: notes
       };
-
-      // const response = await axios({
-      //   method: 'post',
-      //   url: `${uri.BASE_URL}/expense/add`,
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Authorization: token
-      //   },
-      //   data: JSON.stringify({
-      //     icon: iconOption,
-      //     amount: +amount,
-      //     when: new Date().toISOString(),
-      //     description: notes,
-      //     balance: updated_balance
-      //   })
-      // });
 
       dispatch(addExpense(newExpense, 'expenses/addExpense'));
 
@@ -160,7 +141,6 @@ const StaticAddButton = () => {
       >
         <View
           style={{
-            // backgroundColor: 'rbga(20, 69, 107, 0.2)',
             height: '100%',
             justifyContent: 'center'
           }}
@@ -294,9 +274,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     width: 300,
-    // height: ,
     padding: 15,
-    // alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

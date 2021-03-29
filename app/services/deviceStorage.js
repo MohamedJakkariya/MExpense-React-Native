@@ -18,7 +18,6 @@ const storeData = async (key, value) => {
  */
 const storeDataObject = async (key, valueObject) => {
   try {
-    console.log(valueObject);
     const jsonValue = JSON.stringify(valueObject);
     await AsyncStorage.setItem(key, jsonValue);
     return true;

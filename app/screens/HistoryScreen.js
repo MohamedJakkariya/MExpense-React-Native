@@ -6,11 +6,10 @@ import BackArrowIcon from '../../assets/icons/arrow-left-circle.svg';
 import ExpenseCard from '../components/ExpenseCard';
 import StaticAddButton from '../components/StaticAddButton';
 
-import color from '../constants/color';
 import { getExpenses } from '../redux/reducers/expenseReducer';
 
 const HistroyScreen = ({ navigation }) => {
-  const data = useSelector(getExpenses);
+  const expenses = useSelector(getExpenses);
 
   return (
     <View style={styles.screen_wrapper}>
@@ -21,9 +20,9 @@ const HistroyScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <ScrollView style={styles.history_wrapper}>
-        {data.expenses.map((expense, index) => {
+        {expenses.map((expense, index) => {
           return (
-            <View style={styles.day_wrapper} key={expense.expense_id}>
+            <View style={styles.day_wrapper} key={index}>
               <ExpenseCard
                 icon={expense.icon}
                 amount={expense.amount}

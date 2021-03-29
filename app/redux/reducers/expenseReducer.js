@@ -2,15 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const expenseSlice = createSlice({
   name: 'expenses',
-  initialState: {
-    summary: {
-      balance_amount: 0
-    },
-    expenses: []
-  },
+  initialState: [],
   reducers: {
     addExpense: (state, action) => {
-      state.expenses.unshift(action.payload);
+      state.unshift(action.payload);
     },
     removeExpense: (state, action) => {},
     setExpense: (state, action) => (state = action.payload)

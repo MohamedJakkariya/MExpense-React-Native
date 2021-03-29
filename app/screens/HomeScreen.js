@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, StatusBar } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, StatusBar, Animated } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 import color from '../constants/color';
 
@@ -13,17 +14,11 @@ import BalanceCard from '../components/BalanceCard';
 import Spinner from 'react-native-loading-spinner-overlay';
 import deviceStorage from '../services/deviceStorage';
 
-// import axios from 'axios';
-// import uri from '../constants';
+import TrashIcon from '../../assets/icons/trash.svg';
+import EditIcon from '../../assets/icons/edit.svg';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function HomeScreen({ navigation }) {
-  // const [data, setData] = useState({
-  //   summary: {
-  //     balance_amount: 0
-  //   },
-  //   expenses: []
-  // });
-
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
@@ -44,18 +39,7 @@ export default function HomeScreen({ navigation }) {
         .getData('balance')
         .then(balance => {
           deviceStorage.getDataObject('expenses').then(expenses => {
-            dispatch(
-              setExpense(
-                {
-                  summary: {
-                    balance_amount: +balance
-                  },
-                  expenses: !expenses ? [] : expenses
-                },
-                'expenses/setExpense'
-              )
-            );
-
+            dispatch(setExpense(!expenses ? [] : expenses, 'expenses/setExpense'));
             dispatch(setBalance(+balance, 'balances/setBalance'));
 
             // TODO: Redirect to home page
@@ -86,7 +70,8 @@ export default function HomeScreen({ navigation }) {
         }}
       />
       <StaticAddButton />
-      <ScrollView style={styles.wrapper}>
+
+      <View style={styles.wrapper}>
         <StatusBar backgroundColor={color.primary} />
 
         <BalanceCard navigation={navigation} />
@@ -104,25 +89,60 @@ export default function HomeScreen({ navigation }) {
           >
             Recent expense
           </Text>
-          {data.expenses.map((expense, index) => (
-            <ExpenseCard
-              icon={expense.icon}
-              key={index}
-              amount={expense.amount}
-              when={expense.when}
-              description={expense.description}
-              navigation={navigation}
-            />
-          ))}
+
+          <SwipeListView
+            data={data}
+            renderItem={(data, rowMap) => (
+              <View>
+                <ExpenseCard
+                  keyExtractor={data.item.expense_id}
+                  icon={data.item.icon}
+                  amount={data.item.amount}
+                  when={data.item.when}
+                  description={data.item.description}
+                  navigation={navigation}
+                />
+              </View>
+            )}
+            renderHiddenItem={(data, rowMap) => (
+              <View
+                keyExtractor={data.item.expense_id}
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: 10
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => alert(data.item.icon)}
+                  style={{
+                    padding: 10
+                  }}
+                >
+                  <TrashIcon />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => alert('edited')}
+                  style={{
+                    zIndex: 10,
+                    padding: 10
+                  }}
+                >
+                  <EditIcon />
+                </TouchableOpacity>
+              </View>
+            )}
+            rightOpenValue={-50}
+          />
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   bottomContainer: {
-    flex: 2,
+    flex: 1,
     margin: 10,
     marginTop: 20
   },

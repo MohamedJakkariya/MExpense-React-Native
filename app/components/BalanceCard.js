@@ -24,7 +24,11 @@ const BalanceCard = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.topContainer}>
+    <View
+      style={{
+        flex: 0.4
+      }}
+    >
       <View style={styles.welcomeBox}>
         <Text style={styles.welcomText}>
           Hello
@@ -60,7 +64,7 @@ const BalanceCard = ({ navigation }) => {
             <MoneyIcon width={20} height={20} />
             <Text
               style={{
-                fontSize: 50,
+                fontSize: 40,
                 color: color.white,
                 fontWeight: 'bold'
               }}
@@ -105,9 +109,6 @@ const BalanceCard = ({ navigation }) => {
 export default BalanceCard;
 
 const styles = StyleSheet.create({
-  topContainer: {
-    flex: 1
-  },
   balanceBox: {
     backgroundColor: color.primary,
     borderRadius: 12,
@@ -119,12 +120,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
-  balanceBoxBottom: {
-    flex: 1
-  },
 
   welcomeBox: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
