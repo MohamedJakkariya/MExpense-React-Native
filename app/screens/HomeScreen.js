@@ -6,7 +6,7 @@ import color from '../constants/color';
 
 import ExpenseCard from '../components/ExpenseCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getExpenses, setExpense } from '../redux/reducers/expenseReducer';
+import { getExpenses, removeExpense, setExpense } from '../redux/reducers/expenseReducer';
 import { setBalance } from '../redux/reducers/balanceReducer';
 
 import StaticAddButton from '../components/StaticAddButton';
@@ -16,6 +16,7 @@ import deviceStorage from '../services/deviceStorage';
 
 import TrashIcon from '../../assets/icons/trash.svg';
 import EditIcon from '../../assets/icons/edit.svg';
+import { showMessage } from 'react-native-flash-message';
 
 export default function HomeScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -52,6 +53,17 @@ export default function HomeScreen({ navigation }) {
   }, []);
 
   const data = useSelector(getExpenses);
+
+  const handleRemoveExpenseAction = async key => {
+    const result = await deviceStorage.removeExpenseFromLocal(key);
+
+    if (result) dispatch(removeExpense(key, 'expenses/removeExpenses'));
+
+    showMessage({
+      message: 'Successfully removed.',
+      type: 'success'
+    });
+  };
 
   return (
     <View
@@ -113,7 +125,7 @@ export default function HomeScreen({ navigation }) {
                 }}
               >
                 <TouchableOpacity
-                  onPress={() => alert(data.item.icon)}
+                  onPress={() => handleRemoveExpenseAction(data.item.key)}
                   style={{
                     padding: 10
                   }}

@@ -1,19 +1,34 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import BackArrowIcon from '../../assets/icons/arrow-left-circle.svg';
 import ExpenseCard from '../components/ExpenseCard';
 import StaticAddButton from '../components/StaticAddButton';
 
-import { getExpenses } from '../redux/reducers/expenseReducer';
+import { getExpenses, removeExpense } from '../redux/reducers/expenseReducer';
 
 import TrashIcon from '../../assets/icons/trash.svg';
 import EditIcon from '../../assets/icons/edit.svg';
+import { showMessage } from 'react-native-flash-message';
+import deviceStorage from '../services/deviceStorage';
 
 const HistroyScreen = ({ navigation }) => {
   const data = useSelector(getExpenses);
+
+  const dispatch = useDispatch();
+
+  const handleRemoveExpenseAction = async key => {
+    const result = await deviceStorage.removeExpenseFromLocal(key);
+
+    if (result) dispatch(removeExpense(key, 'expenses/removeExpenses'));
+
+    showMessage({
+      message: 'Successfully removed.',
+      type: 'success'
+    });
+  };
 
   return (
     <View style={styles.screen_wrapper}>
@@ -47,7 +62,7 @@ const HistroyScreen = ({ navigation }) => {
             }}
           >
             <TouchableOpacity
-              onPress={() => alert(data.item.icon)}
+              onPress={() => handleRemoveExpenseAction(data.item.key)}
               style={{
                 padding: 10
               }}
