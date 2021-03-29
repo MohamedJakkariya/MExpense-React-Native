@@ -7,7 +7,7 @@ import RupeeRedIcon from '../../assets/icons/money_red.svg';
 import PlusIcon from '../../assets/icons/plus.svg';
 
 import color from '../constants/color';
-import { addBalance, getBalance, resetBalance } from '../redux/reducers/balanceReducer';
+import { addBalance, getBalance } from '../redux/reducers/balanceReducer';
 
 // import uri from '../constants';
 // import axios from 'axios';
@@ -36,6 +36,13 @@ const AddBalance = ({ navigation }) => {
         return navigation.navigate('Login');
       }
 
+      // ! Validation
+      if (+updated_balance > 100000)
+        return showMessage({
+          message: 'Amoung should be less than a lack.',
+          type: 'warning'
+        });
+
       // TODO: Update the new balance
       dispatch(addBalance(updated_balance, 'balances/addBalance'));
 
@@ -57,8 +64,7 @@ const AddBalance = ({ navigation }) => {
           message: 'Successfully updated.',
           type: 'success'
         });
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
       showMessage({
         message: "Can't update the balance.",
         type: 'warning'

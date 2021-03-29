@@ -14,6 +14,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBalance, subtractBalance } from '../redux/reducers/balanceReducer';
 import icon from '../constants/icons';
 import deviceStorage from '../services/deviceStorage';
+
+import { customAlphabet } from 'nanoid/non-secure';
+
+const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 10);
+
 // import uri from '../constants';
 // import axios from 'axios';
 
@@ -46,6 +51,7 @@ const StaticAddButton = () => {
 
     // TODO: Update the new balance
     dispatch(subtractBalance(updated_balance, 'balances/subtractBalance'));
+    deviceStorage.storeData('balance', updated_balance);
 
     try {
       const token = await deviceStorage.getData('auth_token');
@@ -59,7 +65,7 @@ const StaticAddButton = () => {
       }
 
       const newExpense = {
-        _id: response.data.document._id,
+        expense_id: nanoid().toUpperCase(),
         icon: iconOption,
         amount: +amount,
         when: new Date().toISOString(),
@@ -84,7 +90,7 @@ const StaticAddButton = () => {
 
       dispatch(addExpense(newExpense, 'expenses/addExpense'));
 
-      const result = await deviceStorage.addExpenseToLocal('expenses', newExpense);
+      const result = await deviceStorage.addExpenseToLocal(newExpense);
 
       if (result)
         showMessage({
@@ -92,6 +98,7 @@ const StaticAddButton = () => {
           type: 'success'
         });
     } catch (e) {
+      console.log('err :: ', e);
       showMessage({
         message: 'Something went wrong.',
         type: 'warning'
