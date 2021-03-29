@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, StatusBar, Animated } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import color from '../constants/color';
@@ -16,7 +16,6 @@ import deviceStorage from '../services/deviceStorage';
 
 import TrashIcon from '../../assets/icons/trash.svg';
 import EditIcon from '../../assets/icons/edit.svg';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function HomeScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
