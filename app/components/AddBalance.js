@@ -9,8 +9,6 @@ import PlusIcon from '../../assets/icons/plus.svg';
 import color from '../constants/color';
 import { addBalance, getBalance } from '../redux/reducers/balanceReducer';
 
-// import uri from '../constants';
-// import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
 
 const AddBalance = ({ navigation }) => {
@@ -22,6 +20,8 @@ const AddBalance = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const hanldeBalanceButton = async updated_balance => {
+    if (!balance) return setModalVisible(!modalVisible);
+
     // TODO: Close the modal
     setModalVisible(!modalVisible);
 
@@ -46,17 +46,6 @@ const AddBalance = ({ navigation }) => {
       // TODO: Update the new balance
       dispatch(addBalance(updated_balance, 'balances/addBalance'));
 
-      // const response = await axios({
-      //   method: 'post',
-      //   url: `${uri.BASE_URL}/balance/update`,
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Authorization: token
-      //   },
-      //   data: JSON.stringify({
-      //     balance: updated_balance
-      //   })
-      // });
       const result = await deviceStorage.storeData('balance', `${updated_balance}`);
 
       if (result)

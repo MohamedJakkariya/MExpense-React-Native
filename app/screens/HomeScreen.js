@@ -15,8 +15,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import deviceStorage from '../services/deviceStorage';
 
 import TrashIcon from '../../assets/icons/trash.svg';
-import EditIcon from '../../assets/icons/edit.svg';
 import { showMessage } from 'react-native-flash-message';
+import UpdateExpenseModal from '../components/UpdateExpenseModal';
 
 export default function HomeScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -50,9 +50,7 @@ export default function HomeScreen({ navigation }) {
           setLoading(false);
         });
     });
-  }, []);
-
-  const data = useSelector(getExpenses);
+  }, [data]);
 
   const handleRemoveExpenseAction = async key => {
     const result = await deviceStorage.removeExpenseFromLocal(key);
@@ -64,6 +62,8 @@ export default function HomeScreen({ navigation }) {
       type: 'success'
     });
   };
+
+  const data = useSelector(getExpenses);
 
   return (
     <View
@@ -132,15 +132,15 @@ export default function HomeScreen({ navigation }) {
                 >
                   <TrashIcon />
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => alert('edited')}
-                  style={{
-                    zIndex: 10,
-                    padding: 10
+                <UpdateExpenseModal
+                  expense={{
+                    amount: `${data.item.amount}`,
+                    icon: data.item.icon,
+                    description: data.item.description,
+                    key: data.item.key,
+                    when: data.item.when
                   }}
-                >
-                  <EditIcon />
-                </TouchableOpacity>
+                />
               </View>
             )}
             rightOpenValue={-50}

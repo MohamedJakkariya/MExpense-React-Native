@@ -102,6 +102,29 @@ const removeExpenseFromLocal = async key => {
   }
 };
 
+/**
+ * @param expense - Object contains expense information
+ * @returns boolean
+ */
+const updateExpenseFromLocal = async expense => {
+  try {
+    const allExpense = await getDataObject('expenses');
+
+    if (allExpense) {
+      const index = allExpense.findIndex(e => e.key === expense.key);
+
+      allExpense[index] = expense;
+
+      return await storeDataObject('expenses', allExpense);
+    }
+
+    return await storeDataObject('expenses', []);
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
 export default {
   getData,
   getDataObject,
@@ -109,5 +132,6 @@ export default {
   storeDataObject,
   removeData,
   addExpenseToLocal,
-  removeExpenseFromLocal
+  removeExpenseFromLocal,
+  updateExpenseFromLocal
 };
