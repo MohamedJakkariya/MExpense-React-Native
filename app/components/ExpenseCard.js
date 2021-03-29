@@ -63,11 +63,13 @@ const ExpenseCard = ({ icon, amount, when, description }) => {
         <Text
           style={{
             fontWeight: 'bold',
-            fontSize: 14,
-            color: color.white
+            fontSize: 13,
+            color: color.white,
+            textAlign: 'center',
+            paddingHorizontal: 10
           }}
         >
-          {moment(new Date(when)).format('LT')}
+          {moment(new Date(when)).startOf('m').fromNow()}
         </Text>
       </View>
     </View>
@@ -94,8 +96,7 @@ const styles = StyleSheet.create({
     paddingLeft: 25
   },
   timeText: {
-    flex: 1.4,
-    textAlign: 'right'
+    flex: 1.3
   },
   minusAmount: {
     flex: 2.5,

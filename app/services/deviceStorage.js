@@ -6,8 +6,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const storeData = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, value);
+    return true;
   } catch (e) {
     // saving error
+    return false;
   }
 };
 
@@ -18,8 +20,10 @@ const storeDataObject = async (key, valueObject) => {
   try {
     const jsonValue = JSON.stringify(valueObject);
     await AsyncStorage.setItem(key, jsonValue);
+    return true;
   } catch (e) {
     // saving error
+    return false;
   }
 };
 
@@ -39,7 +43,6 @@ const getData = async key => {
 /**
  * @description reading single data object
  */
-
 const getDataObject = async keyObject => {
   try {
     const jsonValue = await AsyncStorage.getItem(keyObject);
@@ -62,10 +65,30 @@ const removeData = async key => {
   }
 };
 
+/**
+ * @param expense - Object contains expense information
+ * @returns boolean
+ */
+const addExpenseToLocal = async expense => {
+  try {
+    const allExpense = await getData('expenses');
+
+    const newExpense = allExpense.concat(expense);
+
+    await storeData('expenses', newExpense);
+
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
 export default {
   getData,
   getDataObject,
   storeData,
   storeDataObject,
-  removeData
+  removeData,
+  addExpenseToLocal
 };

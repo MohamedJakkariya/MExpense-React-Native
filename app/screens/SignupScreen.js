@@ -122,6 +122,7 @@ const SignupScreen = ({ navigation }) => {
               label='Email'
               value={state.email}
               dense={false}
+              autoFocus={true}
               onChangeText={e =>
                 setState({
                   ...state,

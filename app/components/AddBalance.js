@@ -9,8 +9,8 @@ import PlusIcon from '../../assets/icons/plus.svg';
 import color from '../constants/color';
 import { addBalance, getBalance, resetBalance } from '../redux/reducers/balanceReducer';
 
-import uri from '../constants';
-import axios from 'axios';
+// import uri from '../constants';
+// import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
 
 const AddBalance = ({ navigation }) => {
@@ -21,12 +21,9 @@ const AddBalance = ({ navigation }) => {
   const existBalance = useSelector(getBalance);
   const dispatch = useDispatch();
 
-  const hanldeAddBalanceButton = async () => {
+  const hanldeBalanceButton = async updated_balance => {
     // TODO: Close the modal
     setModalVisible(!modalVisible);
-
-    // TODO: Made updated balance
-    const updated_balance = existBalance + +balance;
 
     try {
       const token = await deviceStorage.getData('auth_token');
@@ -34,7 +31,7 @@ const AddBalance = ({ navigation }) => {
       if (!token) {
         showMessage({
           message: 'Login to continue.',
-          type: 'success'
+          type: 'info'
         });
         return navigation.navigate('Login');
       }
@@ -42,27 +39,28 @@ const AddBalance = ({ navigation }) => {
       // TODO: Update the new balance
       dispatch(addBalance(updated_balance, 'balances/addBalance'));
 
-      const response = await axios({
-        method: 'post',
-        url: `${uri.BASE_URL}/balance/update`,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
-        },
-        data: JSON.stringify({
-          balance: updated_balance
-        })
-      });
+      // const response = await axios({
+      //   method: 'post',
+      //   url: `${uri.BASE_URL}/balance/update`,
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: token
+      //   },
+      //   data: JSON.stringify({
+      //     balance: updated_balance
+      //   })
+      // });
+      const result = await deviceStorage.storeData('balance', `${updated_balance}`);
 
-      if (response.data.result)
+      if (result)
         showMessage({
-          message: response.data.message,
+          message: 'Successfully updated.',
           type: 'success'
         });
     } catch (e) {
       console.log(e);
       showMessage({
-        message: e.response.data.message,
+        message: "Can't update the balance.",
         type: 'warning'
       });
     }
@@ -70,44 +68,6 @@ const AddBalance = ({ navigation }) => {
     // TODO: reset amount
     setBalance(null);
     setBalanceButtonText('CANCEL');
-  };
-
-  const hanldeResetBalanceButton = async () => {
-    // TODO: Update the new balance
-    dispatch(resetBalance(0, 'balances/resetBalance'));
-
-    // TODO: Close the modal
-    setModalVisible(!modalVisible);
-
-    try {
-      const token = await deviceStorage.getData('auth_token');
-      const response = await axios({
-        method: 'post',
-        url: `${uri.BASE_URL}/balance/update`,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
-        },
-        data: JSON.stringify({
-          balance: 0
-        })
-      });
-
-      if (response.data.result)
-        showMessage({
-          message: response.data.message,
-          type: 'success'
-        });
-    } catch (e) {
-      console.log(e);
-      showMessage({
-        message: e.response.data.message,
-        type: 'warning'
-      });
-    }
-
-    // TODO: reset amount
-    setBalance(null);
   };
 
   return (
@@ -190,7 +150,7 @@ const AddBalance = ({ navigation }) => {
                     width: 100
                   }
                 ]}
-                onPress={hanldeResetBalanceButton}
+                onPress={() => hanldeBalanceButton(0)}
               >
                 <Text style={styles.textStyle}>RESET</Text>
               </Pressable>
@@ -204,7 +164,7 @@ const AddBalance = ({ navigation }) => {
                     marginLeft: 10
                   }
                 ]}
-                onPress={hanldeAddBalanceButton}
+                onPress={() => hanldeBalanceButton(existBalance + +balance)}
               >
                 <Text style={styles.textStyle}>{balanceButtonText}</Text>
               </Pressable>

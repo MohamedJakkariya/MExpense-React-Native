@@ -69,7 +69,6 @@ const LoginScreen = ({ navigation }) => {
         await navigation.navigate('Index', { screen: 'Home' });
       }
     } catch (e) {
-      console.log(e.response.data.result);
       if (!e.response.data.result)
         showMessage({
           message: e.response.data.message,

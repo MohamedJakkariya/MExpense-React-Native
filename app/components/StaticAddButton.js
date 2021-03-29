@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBalance, subtractBalance } from '../redux/reducers/balanceReducer';
 import icon from '../constants/icons';
 import deviceStorage from '../services/deviceStorage';
-import uri from '../constants';
-import axios from 'axios';
+// import uri from '../constants';
+// import axios from 'axios';
 
 // TODO: Define dropdown options
 const dropdownOption = [
@@ -50,43 +50,50 @@ const StaticAddButton = () => {
     try {
       const token = await deviceStorage.getData('auth_token');
 
-      const response = await axios({
-        method: 'post',
-        url: `${uri.BASE_URL}/expense/add`,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
-        },
-        data: JSON.stringify({
-          icon: iconOption,
-          amount: +amount,
-          when: new Date().toISOString(),
-          description: notes,
-          balance: updated_balance
-        })
-      });
-
-      dispatch(
-        addExpense(
-          {
-            _id: response.data.document._id,
-            icon: iconOption,
-            amount: +amount,
-            when: new Date().toISOString(),
-            description: notes
-          },
-          'expenses/addExpense'
-        )
-      );
-
-      if (response.data.result)
+      if (!token) {
         showMessage({
-          message: response.data.message,
+          message: 'Login to continue.',
+          type: 'info'
+        });
+        return navigation.navigate('Login');
+      }
+
+      const newExpense = {
+        _id: response.data.document._id,
+        icon: iconOption,
+        amount: +amount,
+        when: new Date().toISOString(),
+        description: notes
+      };
+
+      // const response = await axios({
+      //   method: 'post',
+      //   url: `${uri.BASE_URL}/expense/add`,
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: token
+      //   },
+      //   data: JSON.stringify({
+      //     icon: iconOption,
+      //     amount: +amount,
+      //     when: new Date().toISOString(),
+      //     description: notes,
+      //     balance: updated_balance
+      //   })
+      // });
+
+      dispatch(addExpense(newExpense, 'expenses/addExpense'));
+
+      const result = await deviceStorage.addExpenseToLocal('expenses', newExpense);
+
+      if (result)
+        showMessage({
+          message: 'Successfully updated.',
           type: 'success'
         });
     } catch (e) {
       showMessage({
-        message: e.response.data.message,
+        message: 'Something went wrong.',
         type: 'warning'
       });
     }

@@ -42,7 +42,6 @@ export default HistroyScreen;
 
 const styles = StyleSheet.create({
   back_button: {
-    // backgroundColor: 'red',
     paddingTop: 15,
     paddingLeft: 10
   },
