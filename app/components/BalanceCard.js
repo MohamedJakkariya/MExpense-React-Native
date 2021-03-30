@@ -32,7 +32,7 @@ const BalanceCard = ({ navigation }) => {
       <View style={styles.welcomeBox}>
         <Text style={styles.welcomText}>
           Hello
-          <Text style={styles.welcomTextHighLight}> MD</Text>,
+          <Text style={styles.welcomTextHighLight}> user,</Text>
         </Text>
         <TouchableOpacity onPress={handleLogout}>
           <LogoutIcon style={styles.UserIcon} />

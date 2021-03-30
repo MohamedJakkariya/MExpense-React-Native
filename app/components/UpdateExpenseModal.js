@@ -8,17 +8,12 @@ import RupeeRedIcon from '../../assets/icons/money_red.svg';
 import color from '../constants/color';
 
 import { IconViewOption } from '../utility';
-import { useDispatch, useSelector } from 'react-redux';
-import { getBalance, subtractBalance } from '../redux/reducers/balanceReducer';
+import { useDispatch } from 'react-redux';
 import { updateExpense } from '../redux/reducers/expenseReducer';
 import icon from '../constants/icons';
 import deviceStorage from '../services/deviceStorage';
 
 import EditIcon from '../../assets/icons/edit.svg';
-
-import { customAlphabet } from 'nanoid/non-secure';
-
-const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 10);
 
 // TODO: Define dropdown options
 const dropdownOption = [
@@ -84,11 +79,6 @@ const UpdateExpenseModal = ({ expense }) => {
     }
     // TODO: Close the modal
     setModalVisible(!modalVisible);
-
-    // TODO: reset Text, amount, iconOption
-    setNotes('');
-    setAmount(null);
-    setIconOption(dropdownOption[0]);
   };
 
   return (

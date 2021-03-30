@@ -22,7 +22,7 @@ export default function () {
       }}
     >
       <Tab.Navigator
-        initialRouteName='Home'
+        initialRouteName='History'
         activeColor={color.green}
         inactiveColor={color.white}
         shifting={true}
