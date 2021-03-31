@@ -7,7 +7,7 @@ import RupeeRedIcon from '../../assets/icons/money_red.svg';
 import PlusIcon from '../../assets/icons/plus.svg';
 
 import color from '../constants/color';
-import { addBalance, getBalance } from '../redux/reducers/balanceReducer';
+import { getBalance, setRootBalance } from '../redux/reducers/balanceReducer';
 
 import deviceStorage from '../services/deviceStorage';
 
@@ -44,7 +44,7 @@ const AddBalance = ({ navigation }) => {
         });
 
       // TODO: Update the new balance
-      dispatch(addBalance(updated_balance, 'balances/addBalance'));
+      dispatch(setRootBalance(updated_balance, 'balances/setRootBalance'));
 
       const result = await deviceStorage.storeData('balance', `${updated_balance}`);
 

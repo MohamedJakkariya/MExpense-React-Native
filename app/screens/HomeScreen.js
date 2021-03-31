@@ -8,7 +8,7 @@ import color from '../constants/color';
 import ExpenseCard from '../components/ExpenseCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExpenses, removeExpense, setExpense, updateExpense } from '../redux/reducers/expenseReducer';
-import { setBalance } from '../redux/reducers/balanceReducer';
+import { setRootBalance } from '../redux/reducers/balanceReducer';
 
 import StaticAddButton from '../components/StaticAddButton';
 import BalanceCard from '../components/BalanceCard';
@@ -64,7 +64,7 @@ export default function HomeScreen({ navigation }) {
         .then(balance => {
           deviceStorage.getDataObject('expenses').then(expenses => {
             dispatch(setExpense(!expenses ? [] : expenses, 'expenses/setExpense'));
-            dispatch(setBalance(+balance, 'balances/setBalance'));
+            dispatch(setRootBalance(+balance, 'balances/setRootBalance'));
 
             // TODO: Redirect to home page
             navigation.navigate('Index', { screen: 'Home' });

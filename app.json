@@ -26,9 +26,6 @@
         "backgroundColor": "#19456B"
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": ["expo.js", "js", "jsx", "json", "wasm", "svg"]

@@ -11,7 +11,7 @@ import color from '../constants/color';
 import { IconViewOption } from '../utility';
 import { addExpense } from '../redux/reducers/expenseReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBalance, subtractBalance } from '../redux/reducers/balanceReducer';
+import { getBalance, setRootBalance } from '../redux/reducers/balanceReducer';
 import icon from '../constants/icons';
 import deviceStorage from '../services/deviceStorage';
 
@@ -47,7 +47,7 @@ const StaticAddButton = () => {
     const updated_balance = existBalance - +amount;
 
     // TODO: Update the new balance
-    dispatch(subtractBalance(updated_balance, 'balances/subtractBalance'));
+    dispatch(setRootBalance(updated_balance, 'balances/setRootBalance'));
     deviceStorage.storeData('balance', `${updated_balance}`);
 
     try {
