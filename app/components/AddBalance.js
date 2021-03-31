@@ -33,10 +33,10 @@ const AddBalance = ({ navigation }) => {
     ]);
 
   const hanldeBalanceButton = async (updated_balance, mode) => {
-    if (mode !== 'RESET' && !updated_balance) return;
-
     // TODO: Close the modal
     setModalVisible(!modalVisible);
+
+    if (balanceButtonText === 'CANCEL' && mode === 'UPDATE') return;
 
     try {
       const token = await deviceStorage.getData('auth_token');
