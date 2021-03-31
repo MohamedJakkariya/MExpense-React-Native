@@ -19,8 +19,21 @@ const AddBalance = ({ navigation }) => {
   const existBalance = useSelector(getBalance);
   const dispatch = useDispatch();
 
-  const hanldeBalanceButton = async updated_balance => {
-    if (!balance) return setModalVisible(!modalVisible);
+  const showAlert = () =>
+    Alert.alert('Confirmation', 'Did you want to reset your balance ?', [
+      {
+        text: 'OK',
+        onPress: async () => await hanldeBalanceButton(0, 'RESET'),
+        style: 'default'
+      },
+      {
+        text: 'CANCEL',
+        style: 'cancel'
+      }
+    ]);
+
+  const hanldeBalanceButton = async (updated_balance, mode) => {
+    if (mode !== 'RESET' && !updated_balance) return;
 
     // TODO: Close the modal
     setModalVisible(!modalVisible);
@@ -145,7 +158,7 @@ const AddBalance = ({ navigation }) => {
                     width: 100
                   }
                 ]}
-                onPress={() => hanldeBalanceButton(0)}
+                onPress={showAlert}
               >
                 <Text style={styles.textStyle}>RESET</Text>
               </Pressable>
@@ -159,7 +172,7 @@ const AddBalance = ({ navigation }) => {
                     marginLeft: 10
                   }
                 ]}
-                onPress={() => hanldeBalanceButton(existBalance + +balance)}
+                onPress={() => hanldeBalanceButton(existBalance + +balance, 'UPDATE')}
               >
                 <Text style={styles.textStyle}>{balanceButtonText}</Text>
               </Pressable>
