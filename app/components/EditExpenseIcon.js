@@ -27,8 +27,6 @@ const dropdownOption = [
 ];
 
 const EditExpenseIcon = ({ data }) => {
-  console.log('Invokec');
-
   const [state, setState] = useState({
     amount: `${data.amount}`,
     note: data.item.description,
@@ -43,16 +41,7 @@ const EditExpenseIcon = ({ data }) => {
    * @param data - object of the expense to be updated
    */
   const handleExpenseEditAction = async () => {
-    console.log(allExpense);
     const findExpense = allExpense[data.index];
-
-    console.log('find index:: ', data.index, ' expense :: ', findExpense);
-    // setState({
-    //   amount: `${findExpense.amount}`,
-    //   note: findExpense.description,
-    //   icon: findExpense.icon,
-    //   modalVisible: false
-    // });
 
     const updatedExpense = {
       key: findExpense.key,
