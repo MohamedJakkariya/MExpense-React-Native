@@ -13,6 +13,8 @@ import color from '../constants/color';
 import AddBalance from './AddBalance';
 import deviceStorage from '../services/deviceStorage';
 
+import config from '../constants';
+
 const BalanceCard = ({ navigation }) => {
   const initialBalance = useSelector(getBalance);
 
@@ -62,15 +64,14 @@ const BalanceCard = ({ navigation }) => {
             }}
           >
             <MoneyIcon width={20} height={20} />
-            <Text
-              style={{
-                fontSize: 40,
-                color: color.white,
-                fontWeight: 'bold'
-              }}
-            >
-              {initialBalance.toFixed(2)}
-            </Text>
+
+            {initialBalance <= 0 && initialBalance ? (
+              <Text style={[styles.balanceAmountText, { color: color.red }]}>{initialBalance.toFixed(2)}</Text>
+            ) : initialBalance < config.MIN_BALANCE && initialBalance ? (
+              <Text style={[styles.balanceAmountText, { color: color.orange }]}>{initialBalance.toFixed(2)}</Text>
+            ) : (
+              <Text style={[styles.balanceAmountText]}>{initialBalance.toFixed(2)}</Text>
+            )}
           </Text>
 
           <View
@@ -119,6 +120,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+
+  balanceAmountText: {
+    fontSize: 40,
+    color: color.white,
+    fontWeight: 'bold'
   },
 
   welcomeBox: {
