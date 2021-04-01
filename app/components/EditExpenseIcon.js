@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Alert, Modal, Text, Pressable, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Alert, Modal, Pressable, TextInput, TouchableOpacity } from 'react-native';
+import { updateExpense, getExpenses } from '../redux/reducers/expenseReducer';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { showMessage } from 'react-native-flash-message';
 
-import RupeeRedIcon from '../../assets/icons/money_red.svg';
-
-import color from '../constants/color';
-
 import { IconViewOption } from '../utility';
-import { useDispatch } from 'react-redux';
-import { updateExpense } from '../redux/reducers/expenseReducer';
-import icon from '../constants/icons';
-import deviceStorage from '../services/deviceStorage';
 
+import RupeeRedIcon from '../../assets/icons/money_red.svg';
 import EditIcon from '../../assets/icons/edit.svg';
+
+import icon from '../constants/icons';
+import color from '../constants/color';
+import { useDispatch, useSelector } from 'react-redux';
+import deviceStorage from '../services/deviceStorage';
 
 // TODO: Define dropdown options
 const dropdownOption = [
@@ -27,58 +26,59 @@ const dropdownOption = [
   icon.BAG
 ];
 
-const UpdateExpenseModal = ({ expense }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [amount, setAmount] = useState(expense.amount);
-  const [notes, setNotes] = useState(expense.description);
-  const [iconOption, setIconOption] = useState(expense.icon);
+const EditExpenseIcon = ({ data }) => {
+  console.log('Invokec');
+
+  const [state, setState] = useState({
+    amount: `${data.amount}`,
+    note: data.item.description,
+    icon: data.item.icon,
+    modalVisible: false
+  });
 
   const dispatch = useDispatch();
+  const allExpense = useSelector(getExpenses);
 
-  const handleUpdateExpenseButton = async () => {
-    if (!amount) return;
+  /**
+   * @param data - object of the expense to be updated
+   */
+  const handleExpenseEditAction = async () => {
+    console.log(allExpense);
+    const findExpense = allExpense[data.index];
 
-    // TODO: Update the new balance
-    // dispatch(subtractBalance(updated_balance, 'balances/subtractBalance'));
-    // deviceStorage.storeData('balance', `${updated_balance}`);
+    console.log('find index:: ', data.index, ' expense :: ', findExpense);
+    // setState({
+    //   amount: `${findExpense.amount}`,
+    //   note: findExpense.description,
+    //   icon: findExpense.icon,
+    //   modalVisible: false
+    // });
 
-    try {
-      const token = await deviceStorage.getData('auth_token');
+    const updatedExpense = {
+      key: findExpense.key,
+      icon: state.icon,
+      amount: +state.amount,
+      when: findExpense.when,
+      description: state.note
+    };
 
-      if (!token) {
-        showMessage({
-          message: 'Login to continue.',
-          type: 'info'
-        });
-        return navigation.navigate('Login');
-      }
+    // console.log('update :: ', findExpense);
 
-      const updatedExpense = {
-        key: expense.key,
-        icon: iconOption,
-        amount: +amount,
-        when: expense.when,
-        description: notes
-      };
+    dispatch(updateExpense(updatedExpense, 'expenses/updateExpense'));
 
-      dispatch(updateExpense(updatedExpense, 'expenses/updateExpense'));
+    const result = await deviceStorage.updateExpenseFromLocal(updatedExpense);
 
-      const result = await deviceStorage.updateExpenseFromLocal(updatedExpense);
-
-      if (result)
-        showMessage({
-          message: 'Successfully updated.',
-          type: 'success'
-        });
-    } catch (e) {
-      console.log('err :: ', e);
+    if (result)
       showMessage({
-        message: 'Something went wrong.',
-        type: 'warning'
+        message: 'Successfully updated.',
+        type: 'success'
       });
-    }
+
     // TODO: Close the modal
-    setModalVisible(!modalVisible);
+    setState({
+      ...state,
+      modalVisible: false
+    });
   };
 
   return (
@@ -93,7 +93,14 @@ const UpdateExpenseModal = ({ expense }) => {
             justifyContent: 'center',
             alignItems: 'center'
           }}
-          onPress={() => setModalVisible(true)}
+          onPress={() =>
+            setState({
+              amount: `${data.item.amount}`,
+              icon: data.item.icon,
+              note: data.item.description,
+              modalVisible: !state.modalVisible
+            })
+          }
         >
           <EditIcon />
         </TouchableOpacity>
@@ -101,10 +108,13 @@ const UpdateExpenseModal = ({ expense }) => {
       <Modal
         animationType='fade'
         transparent={true}
-        visible={modalVisible}
+        visible={state.modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
+          setState({
+            ...state,
+            modalVisible: !state.modalVisible
+          });
         }}
       >
         <View
@@ -148,10 +158,15 @@ const UpdateExpenseModal = ({ expense }) => {
                     textAlign: 'left'
                   }}
                   placeholder='0.00'
-                  value={amount}
-                  onChangeText={setAmount}
+                  value={state.amount}
+                  onChangeText={e =>
+                    setState({
+                      ...state,
+                      amount: e
+                    })
+                  }
                   keyboardType='number-pad'
-                  autoFocus={!!modalVisible}
+                  autoFocus={!!state.modalVisible}
                 />
               </View>
 
@@ -164,12 +179,12 @@ const UpdateExpenseModal = ({ expense }) => {
                   justifyContent: 'center',
                   alignItems: 'center'
                 }}
-                defaultValue={iconOption}
-                onSelect={e => setIconOption(dropdownOption[e])}
+                defaultValue={state.icon}
+                onSelect={e => setState({ ...state, icon: dropdownOption[e] })}
                 textStyle={{
                   fontSize: 16
                 }}
-                renderRightComponent={() => IconViewOption.filter(i => i.value === iconOption.toUpperCase())[0].icon}
+                renderRightComponent={() => IconViewOption.filter(i => i.value === state.icon)[0].icon}
                 defaultIndex={0}
                 dropdownTextHighlightStyle={{
                   color: color.red
@@ -186,8 +201,13 @@ const UpdateExpenseModal = ({ expense }) => {
                   width: '100%',
                   marginVertical: 3
                 }}
-                value={notes}
-                onChangeText={setNotes}
+                value={state.note}
+                onChangeText={e =>
+                  setState({
+                    ...state,
+                    note: e
+                  })
+                }
                 placeholder='Enter hints ...'
                 multiline={true}
                 numberOfLines={3}
@@ -209,7 +229,7 @@ const UpdateExpenseModal = ({ expense }) => {
                     width: 100
                   }
                 ]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => setState({ ...state, modalVisible: !state.modalVisible })}
               >
                 <Text style={styles.textStyle}>CANCEL</Text>
               </Pressable>
@@ -222,7 +242,7 @@ const UpdateExpenseModal = ({ expense }) => {
                     width: 100
                   }
                 ]}
-                onPress={handleUpdateExpenseButton}
+                onPress={handleExpenseEditAction}
               >
                 <Text style={styles.textStyle}>UPDATE</Text>
               </Pressable>
@@ -234,7 +254,7 @@ const UpdateExpenseModal = ({ expense }) => {
   );
 };
 
-export default UpdateExpenseModal;
+export default EditExpenseIcon;
 
 const styles = StyleSheet.create({
   modalView: {
