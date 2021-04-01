@@ -10,10 +10,16 @@ import color from '../constants/color';
 import { getBalance, setRootBalance } from '../redux/reducers/balanceReducer';
 
 import deviceStorage from '../services/deviceStorage';
+import { customAlphabet } from 'nanoid/non-secure';
+import { addExpense } from '../redux/reducers/expenseReducer';
+import icon from '../constants/icons';
+
+const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 10);
 
 const AddBalance = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [balance, setBalance] = useState(null);
+  const [hints, setHints] = useState(null);
   const [balanceButtonText, setBalanceButtonText] = useState('CANCEL');
 
   const existBalance = useSelector(getBalance);
@@ -59,13 +65,27 @@ const AddBalance = ({ navigation }) => {
       // TODO: Update the new balance
       dispatch(setRootBalance(updated_balance, 'balances/setRootBalance'));
 
-      const result = await deviceStorage.storeData('balance', `${updated_balance}`);
+      await deviceStorage.storeData('balance', `${updated_balance}`);
 
-      if (result)
-        showMessage({
-          message: 'Successfully updated.',
-          type: 'success'
-        });
+      // TODO: Only add the card when adding balance
+      if (mode !== 'RESET') {
+        const newExpense = {
+          key: nanoid().toUpperCase(),
+          icon: icon.CARD,
+          amount: +balance,
+          when: new Date().toISOString(),
+          description: hints
+        };
+
+        dispatch(addExpense(newExpense, 'expenses/addExpense'));
+
+        await deviceStorage.addExpenseToLocal(newExpense);
+      }
+
+      showMessage({
+        message: 'Successfully updated.',
+        type: 'success'
+      });
     } catch (err) {
       showMessage({
         message: "Can't update the balance.",
@@ -108,8 +128,7 @@ const AddBalance = ({ navigation }) => {
           <View style={styles.modalView}>
             <View
               style={{
-                position: 'relative',
-                width: '70%'
+                position: 'relative'
               }}
             >
               <RupeeRedIcon
@@ -127,9 +146,9 @@ const AddBalance = ({ navigation }) => {
                   borderWidth: 1,
                   padding: 10,
                   paddingLeft: 40,
-                  fontSize: 22,
+                  fontSize: 25,
                   fontWeight: 'bold',
-                  width: '100%',
+                  width: 200,
                   textAlign: 'left'
                 }}
                 placeholder='0.00'
@@ -143,6 +162,23 @@ const AddBalance = ({ navigation }) => {
               />
             </View>
 
+            <View>
+              <TextInput
+                style={{
+                  borderColor: color.primary,
+                  borderWidth: 1,
+                  padding: 5,
+                  width: 200,
+                  height: 40,
+                  marginTop: 10
+                }}
+                value={hints}
+                onChangeText={setHints}
+                placeholder='Enter hints ...'
+                multiline={true}
+                numberOfLines={3}
+              />
+            </View>
             <View
               style={{
                 flexDirection: 'row',

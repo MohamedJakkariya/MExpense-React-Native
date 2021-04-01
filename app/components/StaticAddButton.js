@@ -26,9 +26,9 @@ const dropdownOption = [
   icon.TAG,
   icon.BOOKMARK,
   icon.TRUCK,
-  icon.CARD,
   icon.SHOPPING,
-  icon.BAG
+  icon.BAG,
+  icon.INFO
 ];
 
 const StaticAddButton = () => {

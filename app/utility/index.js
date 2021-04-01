@@ -8,6 +8,7 @@ import TruckIcon from '../../assets/icons/truck.svg';
 import CardIcon from '../../assets/icons/credit-card.svg';
 import CartIcon from '../../assets/icons/shopping-cart.svg';
 import BagIcon from '../../assets/icons/shopping-bag.svg';
+import InfoIcon from '../../assets/icons/info.svg';
 
 import icons from '../constants/icons';
 
@@ -16,6 +17,18 @@ export const IconViewOption = [
     value: icons.DEFAULT,
     icon: (
       <CarotIcon
+        width={15}
+        height={15}
+        style={{
+          marginLeft: 15
+        }}
+      />
+    )
+  },
+  {
+    value: icons.INFO,
+    icon: (
+      <InfoIcon
         width={15}
         height={15}
         style={{

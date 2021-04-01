@@ -6,5 +6,6 @@ export default {
   TRUCK: 'TRUCK',
   CARD: 'CARD',
   SHOPPING: 'SHOPPING',
-  BAG: 'BAG'
+  BAG: 'BAG',
+  INFO: 'INFO'
 };

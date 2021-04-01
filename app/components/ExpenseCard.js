@@ -10,8 +10,12 @@ import CardIcon from '../../assets/icons/credit-card.svg';
 import CartIcon from '../../assets/icons/shopping-cart.svg';
 import BagIcon from '../../assets/icons/shopping-bag.svg';
 import MinusIcon from '../../assets/icons/minus.svg';
-import MoneyIcon from '../../assets/icons/money_red.svg';
+import PlusIcon from '../../assets/icons/plus.svg';
+import MoneyRedIcon from '../../assets/icons/money_red.svg';
+import MoneyGreenIcon from '../../assets/icons/money_green.svg';
+import InfoIcon from '../../assets/icons/info.svg';
 import moment from 'moment';
+import icons from '../constants/icons';
 
 const ExpenseCard = ({ icon, amount, when, description }) => {
   // TODO: Set icon selector
@@ -23,7 +27,8 @@ const ExpenseCard = ({ icon, amount, when, description }) => {
     tag: <TagIcon />,
     truck: <TruckIcon />,
     card: <CardIcon />,
-    shopping: <CartIcon />
+    shopping: <CartIcon />,
+    info: <InfoIcon />
   };
 
   return (
@@ -36,12 +41,13 @@ const ExpenseCard = ({ icon, amount, when, description }) => {
             style={{
               fontWeight: 'bold',
               fontSize: 30,
-              color: color.red,
+              color: icon === icons.CARD ? color.green : color.red,
               textAlign: 'center'
             }}
           >
-            <MinusIcon />
-            <MoneyIcon width={20} height={20} />
+            {icon === icons.CARD ? <PlusIcon /> : <MinusIcon />}
+            {icon === icons.CARD ? <MoneyGreenIcon widht={20} height={20} /> : <MoneyRedIcon width={20} height={20} />}
+
             {amount}
           </Text>
           <Text
