@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "sdkVersion": "40.0.0",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -14,17 +15,22 @@
       "backgroundColor": "#19456B",
       "barStyle": "light-content"
     },
+    "ios": {
+      "supportsTablet": false
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "platforms": ["android"],
     "android": {
       "package": "com.mohamedjakkariya.mexpense",
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adoptive-icon.png",
         "backgroundColor": "#19456B"
-      }
+      },
+      "permissions": []
     },
     "packagerOpts": {
       "config": "metro.config.js",
