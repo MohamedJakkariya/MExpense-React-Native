@@ -21,10 +21,6 @@ import color from './app/constants/color';
 
 import store from './app/redux/store';
 
-import * as Device from 'expo-device';
-
-console.log(Device.DeviceType); // tablet
-
 const theme = {
   ...DefaultTheme,
   roundness: 10,
